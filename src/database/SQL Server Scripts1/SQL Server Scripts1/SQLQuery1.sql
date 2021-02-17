@@ -7,12 +7,12 @@ if DB_ID (N'systemDB') is not null
 go 
 create database systemDB
 	on (NAME = systemDBdat,
-		FILENAME = 'D:\My_Code\recommendation_system\database\DB\systemDBdat.mdf',
+		FILENAME = 'D:\My_Code\movie_recommendation_system\src\database\DB\systemDBdat.mdf',
 		SIZE = 100,
 		MAXSIZE = UNLIMITED, 
 		FILEGROWTH = 5)
 log on (NAME = systemDBlog,
-		FILENAME = 'D:\My_Code\recommendation_system\database\DB\systemDBlog.ldf',
+		FILENAME = 'D:\My_Code\movie_recommendation_system\src\database\DB\systemDBlog.ldf',
 		SIZE = 100,
 		MAXSIZE = UNLIMITED,
 		FILEGROWTH = 5);
@@ -78,8 +78,9 @@ deathYear – in YYYY format if applicable, else '\N'
 primaryProfession (array of strings)– the top-3 professions of the person
 knownForTitles (array of tconsts) – titles the person is known for
 */
-
+/*
 use systemDB;
 select count(*)
 from [title.akas]
 go
+*/
