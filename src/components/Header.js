@@ -52,7 +52,7 @@ const Header = () => {
                             <Input type="password" />
                         </FormGroup>
                         <FormGroup className='mt-3 mb-2'>
-                            <Button className="signin-button" dark disabled={signinLoading} 
+                            <Button className="signin-button" disabled={signinLoading} 
                                     onClick={!signinLoading ? signinClicked : null} block>
                                         {signinLoading ? 'Loading...' : 'Sign-in'}
                             </Button>
