@@ -22,26 +22,26 @@ const Header = () => {
         }
     },[signinLoading])
 
+    const modalCustom = {
+        modal : "modal-custom"
+    }
 
     return (
         <>  
             <Navbar className="navbar-color bg-transparent" expand="md">
-                <Modal isOpen={signinPopup} toggle={popupSigninModal}>
+                <Modal isOpen={signinPopup} size="sm" toggle={popupSigninModal} className="rounded modal-custom">
                     <ModalBody> 
                         <Form>
-                            <FormGroup>
-                                <Label>Sign-In</Label>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor='username'>Username</Label>
+                            <FormGroup className='mb-2'>
+                                <Label className="label-text" htmlFor='username'>Username</Label>
                                 <Input type="text" />
                             </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor='password'>Password</Label>
+                            <FormGroup className='my-2'>
+                                <Label className="label-text" htmlFor='password'>Password</Label>
                                 <Input type="password" />
                             </FormGroup>
-                            <FormGroup>
-                                <Button className="signin-button" disabled={signinLoading} 
+                            <FormGroup className='mt-3 mb-2'>
+                                <Button className="signin-button" dark disabled={signinLoading} 
                                         onClick={!signinLoading ? signinClicked : null} block>
                                             {signinLoading ? 'Loading...' : 'Sign-in'}
                                 </Button>
@@ -52,8 +52,17 @@ const Header = () => {
                                     Keep me signed in
                                 </Label>
                             </FormGroup>
+                            <FormGroup className="mt-1 mb-1" >
+                                <span className="line-custom">
+                                    <h2><span>New to server?</span></h2>
+                                </span>
+                                <Button className="mt-2 signup-button" block>
+                                        Create your new account
+                                </Button>
+                            </FormGroup>
                         </Form>
                     </ModalBody>
+
                 </Modal>
 
                 <NavbarBrand>

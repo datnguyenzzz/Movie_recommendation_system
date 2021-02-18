@@ -26,8 +26,59 @@ body {
 
 .signin-button {
     background-color: #F5D364;
+    font-weight: 400;
+    color : black
 }
 
 .signin-button:hover {
     background-color: #EEBE1E;
+    color : black
+}
+
+.signup-button {
+    background-color: #8F8C8C;
+    color : black
+}
+
+.signup-button:hover {
+    background-color: #7D7A7A;
+    color : black;
+    font-weight: 600;
+}
+
+.modal-custom, .modal-content {
+    background-color: #999999;
+}
+
+
+h2{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+span {
+    background-color: #999999;
+    position: relative;
+    top : 8px;
+    padding: 0 10px;
+}
+
+.label-text {
+    font-size:large;
+    font-weight: 600;
+    color:black
+}
+
+input[type=text],input[type=password] {
+    background-color: #999999;
+    border: 1px solid black;
+    font-weight: 600;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #999999;
+    border: 1px solid #127191;
 }
