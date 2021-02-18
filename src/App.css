@@ -82,3 +82,29 @@ input[type=text]:focus, input[type=password]:focus {
     background-color: #999999;
     border: 1px solid #127191;
 }
+
+.thick-label-text {
+    font-size: xx-large;
+    color : black;
+    font-weight: 700;
+}
+
+.modal-footer-custom {
+    border-top: 1px solid gray;
+    background-color: #7D8182;
+}
+
+.normal-link-text {
+    color : #093642;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.normal-link-text:hover {
+    color : #83540F;
+}
+
+
+.form-footer {
+    height: 25px;
+}
