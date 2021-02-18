@@ -72,13 +72,13 @@ span {
     color:black
 }
 
-input[type=text],input[type=password] {
+.signing-input {
     background-color: #999999;
     border: 1px solid black;
     font-weight: 600;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+.signing-input:focus {
     background-color: #999999;
     border: 1px solid #127191;
 }
@@ -104,7 +104,31 @@ input[type=text]:focus, input[type=password]:focus {
     color : #83540F;
 }
 
-
 .form-footer {
     height: 25px;
+}
+
+.search-bar {
+    width: 100px;
+    font-family:'FontAwesome';
+    font-size: large;
+    background-color: black;
+    color : white;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar:focus {
+    width: 100%;
+    box-sizing: border-box;
+    font-family:'FontAwesome';
+    font-size: large;
+    background-color: black;
+    color : white;
+}
+
+.search-bar::placeholder {
+    font-size: large;
+    font-weight: 100;
+    color:white
 }
