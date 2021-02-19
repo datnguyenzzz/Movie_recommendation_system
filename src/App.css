@@ -20,7 +20,7 @@ body {
     color : white;
 }
 
-.nav-item:hover {
+.navigator:hover {
     background-color:#454542;
 }
 
@@ -108,16 +108,7 @@ span {
     height: 25px;
 }
 
-.search-bar {
-    width: 100px;
-    font-family:'FontAwesome';
-    font-size: large;
-    background-color: black;
-    color : white;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
-
+/*
 .search-bar:focus {
     width: 100%;
     box-sizing: border-box;
@@ -131,4 +122,37 @@ span {
     font-size: large;
     font-weight: 100;
     color:white
+}
+*/
+
+.icon-search {
+    color:white;
+    font-size: 23px;
+    position : absolute;
+    top : 23px;
+    right: 220px;
+    transition: all 1s ease;
+}
+
+.icon-search-open {
+    z-index: 500;
+    right: 440px;
+}
+
+
+.search-bar, .search-bar:hover, .search-bar:focus {
+    background-color: transparent;
+    color : white;
+    width: 0px;
+    border:0 none;
+    border-radius: 0%;
+    /*padding-left: 40px;*/
+    transition: all 1s ease;
+}
+
+.search-bar-open, .search-bar-open:hover, .search-bar-open:focus {
+    background-color: black;
+    border: solid 1px white;
+    width: 250px;
+    padding-left: 40px;
 }

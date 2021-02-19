@@ -34,6 +34,12 @@ const Header = () => {
         setSignuPop(!signupPop);
     }
 
+    //icon.magnifier
+    const [iconClicked,setIconClicked] = useState(false);
+    const clickSearchIcon = () => setIconClicked(!iconClicked);
+
+    console.log(iconClicked);
+
     return (
         <>  
             <Navbar className="navbar-color bg-transparent" expand="md">
@@ -126,27 +132,47 @@ const Header = () => {
 
                 {/* Nav content */}
                 <Nav navbar className="w-100">
-                    <NavItem className="rounded"> 
+                    <NavItem className="navigator rounded"> 
                         <NavLink href="#" className='px-3 py-1 thick'> Movies  </NavLink> 
                     </NavItem>
-                    <NavItem className="rounded"> 
+                    <NavItem className="navigator rounded"> 
                         <NavLink href="#" className='px-3 py-1 thick'> TV Shows </NavLink>
                     </NavItem>
-                    <NavItem className="rounded"> 
+                    <NavItem className="navigator rounded"> 
                         <NavLink href="#" className='px-3 py-1 thick'> New & Popular </NavLink> 
                     </NavItem>
-                    <NavItem className="rounded"> 
+                    <NavItem className="navigator rounded"> 
                         <NavLink href="#" className='px-3 py-1 thick'> Celebs </NavLink> 
                     </NavItem>
                 </Nav>
 
                 <Nav navbar className="w-100 justify-content-end">
-                    <NavItem>
+                    {/*<NavItem>
                         <Input type="text" className="search-bar" placeholder="&#xf002; Title, celeb, genre"
                                 style={{height:"45px", width:"300px"}}/>
+                    </NavItem>*/}
+
+                    <NavItem className="mx-3 my-2">
+                        <Form>
+                            {(iconClicked) ? (
+                                <>
+                                    <a href="#">
+                                        <i onClick={clickSearchIcon} className="fa fa-search icon-search icon-search-open"></i>
+                                    </a>
+                                    <Input type="text" className="search-bar search-bar-open" placeholder="Title, Genre, Celeb"/>
+                                </>
+                            ) : (
+                                <>
+                                    <a href="#">
+                                        <i onClick={clickSearchIcon} className="fa fa-search icon-search"></i>
+                                    </a>
+                                    <Input type="text" className="search-bar" placeholder="Title, Genre, Celeb"/>
+                                </>
+                            )}
+                        </Form>
                     </NavItem>
                     
-                    <NavItem className="rounded" onClick = {popupSigninModal}> 
+                    <NavItem className="navigator rounded" onClick = {popupSigninModal}> 
                         <NavLink href="#" className='px-3 py-1 thick'> Sign in </NavLink>
                     </NavItem>
                 </Nav>
