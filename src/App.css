@@ -136,7 +136,7 @@ span {
 
 .icon-search-open {
     z-index: 500;
-    right: 440px;
+    right: 500px;
 }
 
 
@@ -153,6 +153,6 @@ span {
 .search-bar-open, .search-bar-open:hover, .search-bar-open:focus {
     background-color: black;
     border: solid 1px white;
-    width: 250px;
+    width: 313px;
     padding-left: 40px;
 }

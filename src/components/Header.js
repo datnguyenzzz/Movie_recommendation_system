@@ -1,4 +1,4 @@
-import React , { useState,useEffect } from 'react';
+import React , { useState,useEffect,useRef } from 'react';
 import { Navbar, NavbarBrand, Modal, ModalBody, 
          Nav, NavItem, NavLink, FormGroup, Form,
          Label, Input, Button, ModalFooter } from 'reactstrap';
@@ -38,7 +38,24 @@ const Header = () => {
     const [iconClicked,setIconClicked] = useState(false);
     const clickSearchIcon = () => setIconClicked(!iconClicked);
 
-    console.log(iconClicked);
+    //icon ref hook
+    const searchIcon = useRef(null);
+    useEffect(()=> {
+        const handleClickedOutside = (event) => {
+            //console.log(searchIcon.current.props.className);
+            //console.log(event.target.className);
+            if (searchIcon.current && iconClicked===true) {
+                if (event.target.className.indexOf(searchIcon.current.props.className) == -1) 
+                    setIconClicked(false);   
+            }
+        }
+
+        document.addEventListener('mousedown',handleClickedOutside);
+
+        return () => {
+            document.removeEventListener('mousedown',handleClickedOutside);
+        }
+    },[searchIcon,iconClicked]) 
 
     return (
         <>  
@@ -159,14 +176,14 @@ const Header = () => {
                                     <a href="#">
                                         <i onClick={clickSearchIcon} className="fa fa-search icon-search icon-search-open"></i>
                                     </a>
-                                    <Input type="text" className="search-bar search-bar-open" placeholder="Title, Genre, Celeb"/>
+                                    <Input ref={searchIcon} type="text" className="search-bar search-bar-open" placeholder="Title, Genre, Celeb"/>
                                 </>
                             ) : (
                                 <>
                                     <a href="#">
                                         <i onClick={clickSearchIcon} className="fa fa-search icon-search"></i>
                                     </a>
-                                    <Input type="text" className="search-bar" placeholder="Title, Genre, Celeb"/>
+                                    <Input ref={searchIcon} type="text" className="search-bar" placeholder="Title, Genre, Celeb"/>
                                 </>
                             )}
                         </Form>
