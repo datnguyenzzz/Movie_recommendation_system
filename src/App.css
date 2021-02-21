@@ -156,3 +156,26 @@ span {
     width: 313px;
     padding-left: 40px;
 }
+
+.footer-font-last {
+    font-size: small;
+    color: white;
+    font-weight: 100;
+}
+
+.footer-font-credits {
+    font-size: large;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}
+
+.icon-footer {
+    font-size: 35px;
+    background-color: transparent;
+    color: white;
+}
+
+.icon-footer:hover {
+    transform :scale(2);
+}
