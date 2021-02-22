@@ -21,7 +21,7 @@ body {
 }
 
 .navigator:hover {
-    background-color:#454542;
+    background-color:#7D7777;
 }
 
 .signin-button {
@@ -178,4 +178,15 @@ span {
 
 .icon-footer:hover {
     transform :scale(2);
+}
+
+.jumbotron {
+    padding-top: 20%;
+    padding-bottom: 20%;
+    background-color: #3A3535;
+}
+
+.pos-nav {
+    position: absolute;
+    width: 100%;
 }

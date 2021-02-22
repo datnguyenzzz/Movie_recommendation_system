@@ -59,7 +59,7 @@ const Header = () => {
 
     return (
         <>  
-            <Navbar className="navbar-color bg-transparent" expand="md">
+            <Navbar className="navbar-color bg-transparent pos-nav" expand="md">
                 {/* sign in modal */}
                 <Modal isOpen={signinPopup} size="sm" toggle={popupSigninModal} 
                        className="rounded modal-custom">
