@@ -80,5 +80,5 @@ knownForTitles (array of tconsts) – titles the person is known for
 */
 
 use systemDB;
-select * from [name.basics]
+select top 50 * from [title.basics]
 go
