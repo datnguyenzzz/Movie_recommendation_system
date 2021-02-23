@@ -11,22 +11,22 @@ const Footer = () => {
                 </div>
                 <div className="col-auto">
                     <a href="#">
-                        <i class="fa fa-github icon-footer"></i>
+                        <i className="fa fa-github icon-footer"></i>
                     </a> 
                 </div>
                 <div className="col-auto">
                     <a href="#">
-                        <i class="fa fa-instagram icon-footer"></i>
+                        <i className="fa fa-instagram icon-footer"></i>
                     </a> 
                 </div>
                 <div className="col-auto">
                     <a href="#">
-                        <i class="fa fa-twitter icon-footer"></i>
+                        <i className="fa fa-twitter icon-footer"></i>
                     </a> 
                 </div>
                 <div className="col-auto">
                     <a href="#">
-                        <i class="fa fa-envelope icon-footer"></i>
+                        <i className="fa fa-envelope icon-footer"></i>
                     </a> 
                 </div>
             </div>

@@ -3,7 +3,7 @@ var router = express.Router();
 
 var mssql = require('mssql/msnodesqlv8');
 
-var config = {
+var dbConfig = {
     server : 'localhost',
     database : 'systemDB',
     driver: "msnodesqlv8",
@@ -12,15 +12,9 @@ var config = {
     }
 }
 
-var conn = new mssql.connect(config,(err) => {
-     if(err){
-       console.log("Error while connecting database: " + err)
-     }else{
-       console.log("connected to database: " + config.server)
-     }
-   }
-)
-
+var conn = new mssql.connect(dbConfig, (err) => {
+  if (err) console.log(err);
+});
 var request = new mssql.Request(conn);
 
 /* GET users listing. */
@@ -33,11 +27,10 @@ router.get('/TrailerShowcase', function(req, res, next) {
     } else {
       res.send(table);
     }
-
-    conn.close();
   })
 
 });
+
 
 //route + method to /user
 module.exports = router;

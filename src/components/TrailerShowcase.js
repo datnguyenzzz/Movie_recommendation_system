@@ -3,23 +3,28 @@ import { Jumbotron, Button } from 'reactstrap';
 
 const TrailerShowcase = () => {
 
-    const [titleDB,setTitleDB] = useState(0);
+    const [titleDB,setTitleDB] = useState([]);
+    const [reqDB,setReqDB] = useState(false);
 
     useEffect(() => {
-        fetch('/homepage/TrailerShowcase', {
-            method: 'GET'
-        }).then(res => {
-            if (res.status >= 400) {
-                throw new Error("Bad response from server");
-            }
-            return res.json();
-        }).then(data => {
-            setTitleDB(data);
-        }).catch(err => {
-            console.log(err);
-        })
-    })
-
+        if (reqDB==false) {
+            setReqDB(true);
+            fetch('/homepage/TrailerShowcase', {
+                method: 'GET'
+            }).then(res => {
+                if (res.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return res.json();
+            }).then(data => {
+                //console.log(data.recordsets);
+                setTitleDB(data.recordsets);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    },[reqDB])
+    console.log(titleDB);
     return (
         <>
             <Jumbotron>
