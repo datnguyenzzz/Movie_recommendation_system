@@ -20,7 +20,14 @@ var request = new mssql.Request(conn);
 /* GET users listing. */
 router.get('/TrailerShowcase', function(req, res, next) {
 
-  request.query("select top 50 * from [title.basics]", (err,table) => {
+  var command = "select top 20 *\n"+
+                "from [title.basics] as basics\n"+
+                "inner join [title.ratings] ratings\n"+
+                "on ratings.tconst = basics.tconst\n"+
+                "where (basics.startYear<>N'\\N' and cast(basics.startYear as int) = 2020)\n"+
+                "order by ratings.averageRating + ratings.numVotes desc\n";
+
+  request.query(command, (err,table) => {
     if (err) {
       console.log(err);
       return;

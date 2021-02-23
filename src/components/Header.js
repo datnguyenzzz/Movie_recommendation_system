@@ -58,8 +58,7 @@ const Header = () => {
     },[searchIcon,iconClicked]) 
 
     return (
-        <>  
-            <Navbar className="navbar-color bg-transparent pos-nav" expand="md">
+            <Navbar className="bg-transparent pos-nav" expand="md" sticky="top">
                 {/* sign in modal */}
                 <Modal isOpen={signinPopup} size="sm" toggle={popupSigninModal} 
                        className="rounded modal-custom">
@@ -195,8 +194,6 @@ const Header = () => {
                 </Nav>
 
             </Navbar>
-
-        </>
     )
 }
 

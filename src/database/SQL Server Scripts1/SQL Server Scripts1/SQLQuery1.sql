@@ -80,5 +80,12 @@ knownForTitles (array of tconsts) – titles the person is known for
 */
 
 use systemDB;
-select top 50 * from [title.basics]
+--select top 10 * from [title.ratings]
+--order by numVotes desc 
+select top 20 *
+from [title.basics] as basics 
+inner join [title.ratings] ratings
+on ratings.tconst = basics.tconst
+where (basics.startYear<>N'\N' and cast(basics.startYear as int) = 2020)
+order by ratings.averageRating + ratings.numVotes desc
 go
