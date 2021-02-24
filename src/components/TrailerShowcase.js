@@ -1,9 +1,33 @@
-import React, { useState,useEffect,useRef } from 'react';
-import { Jumbotron, Button } from 'reactstrap';
+import React, { useState,useEffect } from 'react';
+import { Jumbotron } from 'reactstrap';
+
+const ALL_SUGGESTION_MOVIES = 20;
+
+const randomInt = (lim) => {
+    return Math.floor(Math.random() * Math.floor(lim));
+}
+
+const ShowTrailer = ({ movies }) => {
+    //console.log(movies.map(ele => console.log(ele)));
+    var randomId = randomInt(ALL_SUGGESTION_MOVIES);
+    var movie = movies[randomId];
+
+    return (
+        <div>
+            {(movie) ? (
+                <p>{movie["primaryTitle"]}</p>
+            ) : (
+                <></>
+            )}
+        </div>
+    )
+}
 
 const TrailerShowcase = () => {
-
-    const contentDB = useRef([]);
+    
+    //const contentDB = useRef("");
+    const [contentDB,setContent] = useState([]);
+    const [rendered,setRendered] = useState(false);
 
     useEffect(() => {
         fetch('/homepage/TrailerShowcase', {
@@ -14,21 +38,16 @@ const TrailerShowcase = () => {
             }
             return res.json();
         }).then(data => {
-            contentDB.current.innerHTML = data.recordsets[0][1]["primaryTitle"];
+            setContent(data.recordsets[0]);
         }).catch(err => {
             console.log(err);
         })
-    })
+    },[rendered])
+    
     return (
         <>
             <Jumbotron>
-                <h1 className="display-3">Hello, world!</h1>
-                <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr className="my-2" />
-                <div ref = {contentDB}></div>
-                <p className="lead">
-                    <Button color="primary">Learn More</Button>
-                </p>
+                <ShowTrailer movies = {contentDB} />
             </Jumbotron>
         </>
     )
