@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
-import { Jumbotron } from 'reactstrap';
+import ReactPlayer from 'react-player';
+import { Nav } from 'reactstrap';
 
 const ALL_SUGGESTION_MOVIES = 20;
 
@@ -45,11 +46,26 @@ const TrailerShowcase = () => {
     },[rendered])
     
     return (
-        <>
-            <Jumbotron>
-                <ShowTrailer movies = {contentDB} />
-            </Jumbotron>
-        </>
+            <>
+                <div className="trick-player"></div>
+                <div className="player-wrapper">
+                    <ReactPlayer className = "react-player" 
+                             playing = 'true'
+                             url='https://www.youtube.com/watch?v=yQ2XKraC5co' 
+                             width ='100%' height='100%'
+                             config = {{
+                                 youtube : {
+                                     playerVars : { playlist:'yQ2XKraC5co',
+                                                    color:"white",
+                                                    modestbranding:0,
+                                                    controls:0,
+                                                    loop:1,
+                                                    autohide:3
+                                                     }
+                                 }
+                             }}/>
+                </div>
+            </>
     )
 }
 
