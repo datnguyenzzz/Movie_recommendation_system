@@ -20,7 +20,7 @@ var request = new mssql.Request(conn);
 /* GET users listing. */
 router.get('/TrailerShowcase', function(req, res, next) {
 
-  var command = "select top 20 *\n"+
+  var command = "select top 10 *\n"+
                 "from [title.basics] as basics\n"+
                 "inner join [title.ratings] ratings\n"+
                 "on ratings.tconst = basics.tconst\n"+

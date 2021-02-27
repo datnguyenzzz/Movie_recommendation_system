@@ -82,7 +82,7 @@ knownForTitles (array of tconsts) – titles the person is known for
 use systemDB;
 --select top 10 * from [title.ratings]
 --order by numVotes desc 
-select top 20 *
+select top 30 *
 from [title.basics] as basics 
 inner join [title.ratings] ratings
 on ratings.tconst = basics.tconst
