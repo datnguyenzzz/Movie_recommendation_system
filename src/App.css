@@ -14,7 +14,7 @@ body {
 }
 
 .navbar {
-    padding : 1px 80px 1px 80px
+    padding : 1px 80px 1px 80px;
 }
 
 .navbar-brand, .navbar-nav {
@@ -202,7 +202,7 @@ span {
     position: relative;
     /*padding-bottom: calc(var(ratios, .5625) * 100%);*/
     padding-bottom : 56.25%;
-    top: -175px;
+    top: -135px;
 }
 
 .react-player {
@@ -218,4 +218,35 @@ span {
     width: 100%;
     height: 90%;
     z-index: 10;
+}
+
+.movie-name {
+    font-family: Lucida Handwriting;
+    color: white;
+    font-size: 60px;
+    font-weight: bolder;
+    font-stretch: extra-condensed;
+    margin-bottom: 0px;
+}
+
+.movie-description {
+    color : white;
+    font-family: monospace;
+    font-weight: 100;
+    font-size: large;
+}
+
+.star-icon {
+    font-size: 50px;
+    color : #D4AD00;
+    position: absolute;
+}
+
+.review-trailer{
+    margin-top: 500px;
+}
+
+.bigger-num {
+    font-size:35px;
+    font-weight: 600;
 }

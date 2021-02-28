@@ -1,4 +1,5 @@
 import React, { useState,useEffect,useRef } from 'react';
+import { Container,Row,Col } from 'reactstrap';
 
 import AbortController from 'abort-controller';
 
@@ -16,6 +17,7 @@ const ShowTrailer = ({movieId}) => {
     console.log(movieId);
     var youtubeId,videoLink;
     if (movieId) {
+        //youtubeId = movieId.id.videoId;
         youtubeId = movieId;
         videoLink = "https://www.youtube.com/embed/"+youtubeId+"?autoplay=1&mute=0&controls=0&origin=http%3A%2F%2Flocalhost%3A3000&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=0&playlist="+youtubeId+"&color=white&loop=1&enablejsapi=1&widgetid=1";
     }
@@ -39,8 +41,9 @@ const ShowTrailer = ({movieId}) => {
 const TrailerShowcase = () => {
     
     const [contentDB,setContent] = useState();
-    const [apiResponse, setApiRes] = useState();
-
+    const [apiResponse, setApiRes] = useState("1d0Zf9sXlHk");
+    //1d0Zf9sXlHk
+    {/*
     const getApi = async (requestApi) => {
         const res = await youtube.get('/search', {
             params : {
@@ -48,7 +51,7 @@ const TrailerShowcase = () => {
             }
         })
         //console.log(res.data.items[0].id.videoId)
-        setApiRes(res.data.items[0].id.videoId);
+        setApiRes(res.data.items[0]);
     }
 
     const fetchData = (movies) => {
@@ -84,12 +87,39 @@ const TrailerShowcase = () => {
         setContent(data.recordsets[0]);
     }).catch(err => {
         console.log(err);
-    })
+    })*/}
+
 
     return (
             <>
-                <div className="trick-player"></div>
-                <p style={{color:"white"}}>{apiResponse}</p>
+                <div className="trick-player">
+                    <Container className="review-trailer mx-2">
+                        <Row>
+                            <Col xs={{size : 7, offset : 0}}>
+                                <p className = "movie-name"> ENOLA HOLMES </p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={{size : 'auto', offset : 0}}>
+                                <p1 className = "movie-description"> 1h69' | mewmew,mewmew,mewmew | movie (2020-.)</p1>
+                            </Col>
+                        </Row>
+                        <Row className="py-2">
+                            <Col xs={{size : '1'}}>
+                                <i className="fa fa-star star-icon pt-2 pl-4"></i>
+                            </Col>
+                            <Col xs={{size : '2'}}>
+                                <Row className="h-25">
+                                    <p style={{color:'white'}}><b className="bigger-num">6.9</b>/10</p>
+                                </Row>
+                                <Row className="mt-3">
+                                    <p style={{color:'white'}}>12345 rated</p>
+                                </Row>
+                            </Col>
+                        </Row>
+                        
+                    </Container>
+                </div>
                 <ShowTrailer movieId={apiResponse}/>
             </>
     )

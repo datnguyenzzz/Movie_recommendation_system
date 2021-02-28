@@ -80,12 +80,25 @@ knownForTitles (array of tconsts) – titles the person is known for
 */
 
 use systemDB;
---select top 10 * from [title.ratings]
---order by numVotes desc 
-select top 30 *
+
+/*
+select top 10 *
 from [title.basics] as basics 
 inner join [title.ratings] ratings
 on ratings.tconst = basics.tconst
-where (basics.startYear<>N'\N' and cast(basics.startYear as int) = 2020)
-order by ratings.averageRating + ratings.numVotes desc
-go
+where (basics.startYear<>N'\N' and cast(basics.startYear as int) >= 2020 )
+order by ratings.averageRating * 8000 + ratings.numVotes desc
+*/
+
+/*
+select top 10 ratings.[tconst],[averageRating],[numVotes],[titleType],
+[primaryTitle],[startYear],[genres],[isAdult]
+from [title.ratings] as ratings
+inner join [title.basics] basics
+on basics.[tconst] = ratings.[tconst] 
+and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 90000
+and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2020 or cast(basics.startYear as int) = 2021)
+order by ratings.averageRating desc
+*/
+SELECT top 50 * from [title.akas]
+where attributes <> N'\N';
