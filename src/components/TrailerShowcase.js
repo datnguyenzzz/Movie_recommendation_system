@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useRef } from 'react';
-import { Container,Row,Col } from 'reactstrap';
+import { Container,Row,Col,Button } from 'reactstrap';
 
 import AbortController from 'abort-controller';
 
@@ -116,6 +116,15 @@ const TrailerShowcase = () => {
                                     <p style={{color:'white'}}>12345 rated</p>
                                 </Row>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Button className="info-button"> <i class="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
+                                <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
+                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
+                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
+                            </Col>
+                       
                         </Row>
                         
                     </Container>

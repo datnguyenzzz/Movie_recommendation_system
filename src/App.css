@@ -216,8 +216,8 @@ span {
 .trick-player {
     position: absolute;
     width: 100%;
-    height: 90%;
-    z-index: 10;
+    height: 95%;
+    z-index: 20;
 }
 
 .movie-name {
@@ -249,4 +249,18 @@ span {
 .bigger-num {
     font-size:35px;
     font-weight: 600;
+}
+
+.circle-button {
+    border-radius: 50%;
+    height: 42px;
+    background-color: transparent;
+}
+
+.info-button {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.info-content {
+    color: white;
 }

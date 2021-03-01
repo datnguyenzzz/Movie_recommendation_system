@@ -33,7 +33,7 @@ const Footer = () => {
 
             <div className="row justify-content-center">
                 <div className="col-auto">
-                    <p className="footer-font-credits">Credits: Special thanks to prof. <em>Sinyavin Anatoly Vladimirovich</em> from BMSTU Moscow Russia - who is supporting a lot of ideas to help to develop project, <a href="https://www.imdb.com/?ref_=nv_home" style={{color:"white"}}><em>IMDb Inc.</em></a> for providing amazing dataset, and high quality movie trailers from <a href="https://www.youtube.com/user/movieclipsTRAILERS" style={{color:"white"}}><em>#movieclipsTRAILERS</em></a> youtube channel.  </p>
+                    <p className="footer-font-credits">Credits: Special thanks to prof. <em>Sinyavin Anatoly Vladimirovich</em> from BMSTU Moscow Russia - who is supporting a lot of ideas to help to develop project, <a href="https://www.imdb.com/?ref_=nv_home" style={{color:"white"}}><em>IMDb Inc.</em></a> for providing amazing dataset, and high quality movie trailers from <i>Youtube</i>. Inspired by <i>IMDB</i> and <i>Netflix</i> </p>
                 </div>
             </div>
 
