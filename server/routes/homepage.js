@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var httprequest = require('request');
 
 var mssql = require('mssql/msnodesqlv8');
 
@@ -39,6 +40,23 @@ router.get('/TrailerShowcase', function(req, res, next) {
   })
 
 });
+
+
+router.get('/search', (req,res,next) => {
+  var baseUri = "https://api.themoviedb.org/3/search/movie?"
+  for (const key in req.query) {
+    baseUri = baseUri + key +"="+req.query[key]+"&";
+  }
+  baseUri = baseUri.slice(0,baseUri.length-1)
+  httprequest (
+    {url : baseUri},
+    (error, response, body) => {
+        console.log(baseUri);  
+        res.send(JSON.parse(body));
+    }
+  )
+})
+
 
 
 //route + method to /user
