@@ -162,50 +162,54 @@ const TrailerShowcase = () => {
                         {/*<Row>
                             <MoviePoster movieName={movie_name} movieYear={movie_year}/>
                         </Row>*/}
-                    <Row style={{width:'1500px'}}>
-                        <Col xs="2">
-                        <img src={posterUrl}
-                             width="107%" height="81%"/>
-                        </Col>
-                        <Col xs="10">
-                        <Row>
-                            <Col xs={{size : 7, offset : 0}}>
-                                <p className = "movie-name"> ENOLA HOLMES </p>
+                        <Row style={{width:'1500px'}}>
+                            <Col xs="2">
+                                <img src={posterUrl}
+                                    width="107%" height="81%"/>
                             </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={{size : 'auto', offset : 0}}>
-                                <p className = "movie-description"> 1h69' | mewmew,mewmew,mewmew | movie (2020-.)</p>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={{size : 6, offset : 0}}>
-                                <p className = "movie-overview">{movieOverview}</p>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs="4" className="py-3">
-                                <Button className="info-button"> <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
-                                <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
-                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
-                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
-                            </Col>
+                            <Col xs="10">
+                            <Row style={{width:'1645px'}}>
+                                <Col xs={{size : 7, offset : 0}}>
+                                    <p className = "movie-name"> ENOLA HOLMES </p>
+                                </Col>
+                                <Col xs='4'></Col>
+                                <Col xs={{size : 1, offset : 0}} className = "h-25 adult-warning">
+                                    <p className="mt-2"> 18+ </p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={{size : 'auto', offset : 0}}>
+                                    <p className = "movie-description"> 1h69' | mewmew,mewmew,mewmew | movie (2020-.)</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={{size : 6, offset : 0}}>
+                                    <p className = "movie-overview">{movieOverview}</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs="4" className="py-3">
+                                    <Button className="info-button"> <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
+                                    <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
+                                    <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
+                                    <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
+                                </Col>
 
-                            <Col xs={{size : '1'}}>
-                                <i className="fa fa-star star-icon pt-2 pl-4"></i>
+                                <Col xs={{size : '1'}}>
+                                    <i className="fa fa-star star-icon pt-2 pl-4"></i>
+                                </Col>
+                                <Col xs={{size : '2'}}>
+                                    <Row className="h-25">
+                                        <p style={{color:'white'}}><b className="bigger-num">6.9</b>/10</p>
+                                    </Row>
+                                    <Row className="mt-3">
+                                        <p style={{color:'white'}}>12345 rated</p>
+                                    </Row>
+                                </Col>
+                        
+                            </Row>
                             </Col>
-                            <Col xs={{size : '2'}}>
-                                <Row className="h-25">
-                                    <p style={{color:'white'}}><b className="bigger-num">6.9</b>/10</p>
-                                </Row>
-                                <Row className="mt-3">
-                                    <p style={{color:'white'}}>12345 rated</p>
-                                </Row>
-                            </Col>
-                       
                         </Row>
-                        </Col>
-                    </Row>
                         
                     </Container>
                 </div>

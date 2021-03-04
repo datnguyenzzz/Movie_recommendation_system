@@ -275,3 +275,14 @@ span {
 .info-content {
     color: white;
 }
+
+.adult-warning > p{
+    font-size: x-large;
+    color : white;
+    text-align: left;
+}
+
+.adult-warning {
+    background-color: rgba(96, 94, 85, 0.6);
+    border-left: medium solid white;
+}
