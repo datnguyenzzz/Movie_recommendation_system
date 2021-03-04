@@ -23,8 +23,8 @@ const ShowTrailer = ({movieId}) => {
     console.log(movieId);
     var youtubeId,videoLink;
     if (movieId) {
-        //youtubeId = movieId.id.videoId;
-        youtubeId = movieId;
+        youtubeId = movieId.id.videoId;
+        //youtubeId = movieId;
         videoLink = "https://www.youtube.com/embed/"+youtubeId+"?autoplay=1&mute=0&controls=0&origin=http%3A%2F%2Flocalhost%3A3000&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=0&playlist="+youtubeId+"&color=white&loop=1&enablejsapi=1&widgetid=1";
     }
     return (
@@ -75,14 +75,14 @@ const MoviePoster = async ({movieName,movieYear}) => {
 const TrailerShowcase = () => {
     
     var [contentDB, setContent] = useState();
-    var [apiResponse, setApiRes] = useState("1d0Zf9sXlHk");
+    var [apiResponse, setApiRes] = useState();
 
-    var [posterDB,setPoster] = useState();
     var [movieOverview,setOverview] = useState();
     var [posterUrl,setPosterUrl] = useState();
-
+    var [movieTopHead,setMovieTopHead] = useState();
+ 
     //1d0Zf9sXlHk
-    /*
+    
     const getApi = async (requestApi) => {
         const res = await youtube.get('/search', {
             params : {
@@ -94,20 +94,56 @@ const TrailerShowcase = () => {
     }
     const fetchData = (movies) => {
         if (movies) {
-            console.log("invoked")
             var randomId = randomInt(ALL_SUGGESTION_MOVIES);
             var movie = movies[randomId];
-            const primaryTitle = movie["primaryTitle"];
-            const startYear = movie["startYear"];
+            setMovieTopHead(movie);
+            let primaryTitle = movie["primaryTitle"];
+            let startYear = movie["startYear"];
             var requestForApi = primaryTitle + " trailer " + startYear; 
             getApi(requestForApi);
             console.log(requestForApi)
             controller.abort();
         }
     }
+
+    const fetchPosterData = async () => {
+        if (movieTopHead) {
+            //console.log("mewmew");
+            console.log(movieTopHead);
+            
+            let movie_name = movieTopHead["primaryTitle"];
+            let movie_year = movieTopHead["startYear"];
+            var requestUrl = "/homepage/search?api_key="+CONFIGURES.IMDB_API_KEY+"&query="+movie_name+"&year="+movie_year+"&page=1";
+
+            await fetch(requestUrl, {
+                method: 'GET',
+                signal: imdbSignal
+            }).then(res => {
+                if (res.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return res.json();
+            }).then(data => {
+                let posterDB = data.results[0];
+                setOverview(posterDB.overview);
+                var fullPosterUrl = "http://image.tmdb.org/t/p/w500/"+posterDB.poster_path;
+                setPosterUrl(fullPosterUrl);
+                imdbController.abort();
+            }).catch(err => {
+                console.log(err);
+            })
+            
+        }
+    }
+
     useEffect(() => {
         fetchData(contentDB);
     },[contentDB])
+
+    useEffect(() => {
+        fetchPosterData();
+    },[apiResponse])
+
     fetch('/homepage/TrailerShowcase', {
         method: 'GET',
         signal: signal
@@ -121,8 +157,9 @@ const TrailerShowcase = () => {
     }).catch(err => {
         console.log(err);
     })
-    */
+    
 
+    /*
     const fetchDataPoster = (posterDB) => {
         if (posterDB) {
             console.log(posterDB);
@@ -153,7 +190,7 @@ const TrailerShowcase = () => {
     }).catch(err => {
         console.log(err);
     })
-   
+   */
     console.log("fuck " + apiResponse);
     return (
             <>
