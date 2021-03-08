@@ -1,13 +1,12 @@
-import React, { useState,useEffect,useRef } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Container,Row,Col,Button } from 'reactstrap';
 
 import AbortController from 'abort-controller';
 
 import youtube from '../api/youtube';
-import imdb from '../api/imdb';
 import { CONFIGURES } from '../config';
 
-const ALL_SUGGESTION_MOVIES = 10;
+const ALL_SUGGESTION_MOVIES = 8;
 
 const controller = new AbortController();
 const signal = controller.signal;
@@ -44,36 +43,7 @@ const ShowTrailer = ({movieId}) => {
     )
 }
 
-const MoviePoster = async ({movieName,movieYear}) => {
-
-    const getPosterApi = () => {
-        return new Promise((resolve,reject) => {
-            var requestUrl = "/homepage/search?api_key="+CONFIGURES.IMDB_API_KEY+"&query="+movieName+"&year="+movieYear+"&page=1";
-            const response = fetch(requestUrl,{
-                method : 'get',  
-                signal : imdbSignal  
-            }).then(res => {
-                if (res.status >= 400) {
-                    throw new Error("Bad response from server");
-                }
-                return res.json();
-            })
-
-            resolve(response);
-        })
-    }
-
-    getPosterApi().then(response => {
-        console.log(response.results[0].poster_path);
-    })
-
-    return (
-        <></>
-    )
-}
-
 const TrailerShowcase = () => {
-    
     var [contentDB, setContent] = useState();
     var [apiResponse, setApiRes] = useState();
 
@@ -94,15 +64,17 @@ const TrailerShowcase = () => {
     }
     const fetchData = (movies) => {
         if (movies) {
+            controller.abort();
             var randomId = randomInt(ALL_SUGGESTION_MOVIES);
+            console.log(randomId);
             var movie = movies[randomId];
+            console.log(movies);
             setMovieTopHead(movie);
             let primaryTitle = movie["primaryTitle"];
             let startYear = movie["startYear"];
             var requestForApi = primaryTitle + " trailer " + startYear; 
             getApi(requestForApi);
             console.log(requestForApi)
-            controller.abort();
         }
     }
 
@@ -124,11 +96,11 @@ const TrailerShowcase = () => {
                 }
                 return res.json();
             }).then(data => {
+                imdbController.abort();
                 let posterDB = data.results[0];
                 setOverview(posterDB.overview);
                 var fullPosterUrl = "http://image.tmdb.org/t/p/w500/"+posterDB.poster_path;
                 setPosterUrl(fullPosterUrl);
-                imdbController.abort();
             }).catch(err => {
                 console.log(err);
             })
@@ -157,42 +129,9 @@ const TrailerShowcase = () => {
     }).catch(err => {
         console.log(err);
     })
-    
 
-    /*
-    const fetchDataPoster = (posterDB) => {
-        if (posterDB) {
-            console.log(posterDB);
-            setOverview(posterDB.overview);
-            var fullPosterUrl = "http://image.tmdb.org/t/p/w500/"+posterDB.poster_path;
-            setPosterUrl(fullPosterUrl);
-            imdbController.abort();
-        }
-    }
-
-    useEffect(() => {
-        fetchDataPoster(posterDB);
-    },[posterDB])
-
-    var movie_name = "enola holmes";
-    var movie_year = "2020";
-    var requestUrl = "/homepage/search?api_key="+CONFIGURES.IMDB_API_KEY+"&query="+movie_name+"&year="+movie_year+"&page=1";
-    fetch(requestUrl, {
-        method: 'GET',
-        signal: imdbSignal
-    }).then(res => {
-        if (res.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return res.json();
-    }).then(data => {
-        setPoster(data.results[0]);
-    }).catch(err => {
-        console.log(err);
-    })
-   */
-    console.log("fuck " + apiResponse);
-    return (
+    if (movieTopHead) {
+        return (
             <>
                 <div className="trick-player">
                     <Container className="review-trailer mx-2">
@@ -206,17 +145,19 @@ const TrailerShowcase = () => {
                             </Col>
                             <Col xs="10">
                             <Row style={{width:'1645px'}}>
-                                <Col xs={{size : 7, offset : 0}}>
-                                    <p className = "movie-name"> ENOLA HOLMES </p>
+                                <Col xs={{size : 6, offset : 0}}>
+                                        <p className = "movie-name"> <b>{movieTopHead["primaryTitle"]}</b> </p>
                                 </Col>
-                                <Col xs='4'></Col>
-                                <Col xs={{size : 1, offset : 0}} className = "h-25 adult-warning">
-                                    <p className="mt-2"> 18+ </p>
-                                </Col>
+                                <Col xs='5'></Col>
+                                { movieTopHead["isAdult"]=="1" &&
+                                    <Col xs={{size : 1, offset : 0}} className = "h-25 adult-warning">
+                                        <p className="mt-2"> 18+ </p>
+                                    </Col>
+                                }
                             </Row>
                             <Row>
                                 <Col xs={{size : 'auto', offset : 0}}>
-                                    <p className = "movie-description"> 1h69' | mewmew,mewmew,mewmew | movie (2020-.)</p>
+                                    <p className = "movie-description"> {movieTopHead["runtimeMinutes"]}min | {movieTopHead["genres"]} | {movieTopHead["titleType"]} ({movieTopHead["startYear"]}-.)</p>
                                 </Col>
                             </Row>
                             <Row>
@@ -237,10 +178,10 @@ const TrailerShowcase = () => {
                                 </Col>
                                 <Col xs={{size : '2'}}>
                                     <Row className="h-25">
-                                        <p style={{color:'white'}}><b className="bigger-num">6.9</b>/10</p>
+                                        <p style={{color:'white'}}><b className="bigger-num">{movieTopHead["averageRating"]}</b>/10</p>
                                     </Row>
                                     <Row className="mt-3">
-                                        <p style={{color:'white'}}>12345 rated</p>
+                                        <p style={{color:'white'}}>{movieTopHead["numVotes"]} rated</p>
                                     </Row>
                                 </Col>
                         
@@ -252,7 +193,12 @@ const TrailerShowcase = () => {
                 </div>
                 <ShowTrailer movieId={apiResponse}/>
             </>
-    )
+        )
+    } else {
+        return (
+            <></>
+        )
+    }
 }
 
 export default TrailerShowcase;
