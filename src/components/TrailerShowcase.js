@@ -18,24 +18,32 @@ const randomInt = (lim) => {
     return Math.floor(Math.random() * Math.floor(lim));
 }
 
-const ShowTrailer = ({movieId}) => {
+const ShowTrailer = ({movieId, info}) => {
     console.log(movieId);
-    var youtubeId,videoLink;
+    var youtubeId,videoLink,thumbnail;
     if (movieId) {
+        console.log(info)
         youtubeId = movieId.id.videoId;
+        thumbnail = movieId.snippet.thumbnails.high.url;
         //youtubeId = movieId;
         videoLink = "https://www.youtube.com/embed/"+youtubeId+"?autoplay=1&mute=0&controls=0&origin=http%3A%2F%2Flocalhost%3A3000&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=0&playlist="+youtubeId+"&color=white&loop=1&enablejsapi=1&widgetid=1";
     }
     return (
         <div>
             {(movieId) ? (
-                <div className = "player-wrapper">
-                    <iframe src= {videoLink}
-                        frameBorder="0"
-                        className="react-player"
-                        allowFullScreen>
-                    </iframe>
-                </div>
+                (info === false) ? (
+                    <div className = "player-wrapper">
+                        <iframe src= {videoLink}
+                            frameBorder="0"
+                            className="react-player"
+                            allowFullScreen>
+                        </iframe>
+                    </div>
+                ) : (
+                    <div className = "player-wrapper">
+                        <img className = "react-player" src = {thumbnail}/>
+                    </div>
+                )
             ) : (
                 <></>
             )}
@@ -50,6 +58,7 @@ const TrailerShowcase = () => {
     var [movieOverview,setOverview] = useState();
     var [posterUrl,setPosterUrl] = useState();
     var [movieTopHead,setMovieTopHead] = useState();
+    var [moreInfo, setMoreInfo] = useState(false);
  
     //1d0Zf9sXlHk
     
@@ -167,7 +176,7 @@ const TrailerShowcase = () => {
                             </Row>
                             <Row>
                                 <Col xs="4" className="py-3">
-                                    <Button className="info-button"> <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
+                                    <Button className="info-button" onClick={() => setMoreInfo(!moreInfo)} > <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
                                     <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
                                     <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
                                     <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
@@ -191,7 +200,7 @@ const TrailerShowcase = () => {
                         
                     </Container>
                 </div>
-                <ShowTrailer movieId={apiResponse}/>
+                <ShowTrailer movieId={apiResponse} info={moreInfo}/>
             </>
         )
     } else {

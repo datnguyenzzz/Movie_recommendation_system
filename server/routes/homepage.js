@@ -21,7 +21,7 @@ var request = new mssql.Request(conn);
 /* GET users listing. */
 router.get('/TrailerShowcase', function(req, res, next) {
 
-  var command = "select top 10 ratings.[tconst],[averageRating],[numVotes],[titleType],\n"
+  var command = "select top 8 ratings.[tconst],[averageRating],[numVotes],[titleType],\n"
                +"[primaryTitle],[startYear],[genres],[isAdult],[runtimeMinutes]\n"
                +"from [title.ratings] as ratings\n"
                +"inner join [title.basics] basics\n"
