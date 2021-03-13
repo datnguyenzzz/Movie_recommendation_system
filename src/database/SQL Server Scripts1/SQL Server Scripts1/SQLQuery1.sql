@@ -100,5 +100,4 @@ and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 90000
 and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2020 or cast(basics.startYear as int) = 2021)
 order by ratings.averageRating desc
 */
-SELECT top 50 * from [title.akas]
-where attributes <> N'\N';
+SELECT top 50 * from [title.episode];

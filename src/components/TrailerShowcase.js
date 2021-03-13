@@ -1,10 +1,12 @@
 import React, { useState,useEffect } from 'react';
-import { Container,Row,Col,Button } from 'reactstrap';
+import { Container,Row,Col,Button,
+         Modal,ModalBody } from 'reactstrap';
 
 import AbortController from 'abort-controller';
 
 import youtube from '../api/youtube';
 import { CONFIGURES } from '../config';
+import MovieInfo from '../components/MovieInfo'
 
 const ALL_SUGGESTION_MOVIES = 8;
 
@@ -142,63 +144,74 @@ const TrailerShowcase = () => {
     if (movieTopHead) {
         return (
             <>
-                <div className="trick-player">
-                    <Container className="review-trailer mx-2">
-                        {/*<Row>
-                            <MoviePoster movieName={movie_name} movieYear={movie_year}/>
-                        </Row>*/}
-                        <Row style={{width:'1500px'}}>
-                            <Col xs="2">
-                                <img src={posterUrl}
-                                    width="107%" height="81%"/>
-                            </Col>
-                            <Col xs="10">
-                            <Row style={{width:'1645px'}}>
-                                <Col xs={{size : 6, offset : 0}}>
-                                        <p className = "movie-name"> <b>{movieTopHead["primaryTitle"]}</b> </p>
-                                </Col>
-                                <Col xs='5'></Col>
-                                { movieTopHead["isAdult"]=="1" &&
-                                    <Col xs={{size : 1, offset : 0}} className = "h-25 adult-warning">
-                                        <p className="mt-2"> 18+ </p>
-                                    </Col>
-                                }
-                            </Row>
-                            <Row>
-                                <Col xs={{size : 'auto', offset : 0}}>
-                                    <p className = "movie-description"> {movieTopHead["runtimeMinutes"]}min | {movieTopHead["genres"]} | {movieTopHead["titleType"]} ({movieTopHead["startYear"]}-.)</p>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={{size : 6, offset : 0}}>
-                                    <p className = "movie-overview">{movieOverview}</p>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs="4" className="py-3">
-                                    <Button className="info-button" onClick={() => setMoreInfo(!moreInfo)} > <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
-                                    <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
-                                    <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
-                                    <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
-                                </Col>
+                <Modal className="movie-info" isOpen={moreInfo} toggle={() => setMoreInfo(!moreInfo)}>
+                    <ModalBody className="px-0 py-0">
+                        <MovieInfo movieDB={apiResponse} movieOverview={movieOverview} moviePoster={posterUrl}/>
+                    </ModalBody>
+                </Modal>
 
-                                <Col xs={{size : '1'}}>
-                                    <i className="fa fa-star star-icon pt-2 pl-4"></i>
+                <div className="trick-player">
+                    {(moreInfo === false) ? (
+                        <Container className="review-trailer mx-2">
+                            {/*<Row>
+                                <MoviePoster movieName={movie_name} movieYear={movie_year}/>
+                            </Row>*/}
+                            <Row style={{width:'1500px'}}>
+                                <Col xs="2">
+                                    <img src={posterUrl}
+                                        width="107%" height="81%"/>
                                 </Col>
-                                <Col xs={{size : '2'}}>
-                                    <Row className="h-25">
-                                        <p style={{color:'white'}}><b className="bigger-num">{movieTopHead["averageRating"]}</b>/10</p>
-                                    </Row>
-                                    <Row className="mt-3">
-                                        <p style={{color:'white'}}>{movieTopHead["numVotes"]} rated</p>
-                                    </Row>
+                                <Col xs="10">
+                                <Row style={{width:'1645px'}}>
+                                    <Col xs={{size : 6, offset : 0}}>
+                                            <p className = "movie-name"> <b>{movieTopHead["primaryTitle"]}</b> </p>
+                                    </Col>
+                                    <Col xs='5'></Col>
+                                    { movieTopHead["isAdult"]=="1" &&
+                                        <Col xs={{size : 1, offset : 0}} className = "h-25 adult-warning">
+                                            <p className="mt-2"> 18+ </p>
+                                        </Col>
+                                    }
+                                </Row>
+                                <Row>
+                                    <Col xs={{size : 'auto', offset : 0}}>
+                                        <p className = "movie-description"> {movieTopHead["runtimeMinutes"]}min | {movieTopHead["genres"]} | {movieTopHead["titleType"]} ({movieTopHead["startYear"]}-.)</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={{size : 6, offset : 0}}>
+                                        <p className = "movie-overview">{movieOverview}</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs="4" className="py-3">
+                                        <Button className="info-button" onClick={() => setMoreInfo(!moreInfo)} > <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
+                                        <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
+                                        <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
+                                        <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
+                                    </Col>
+
+                                    <Col xs={{size : '1'}}>
+                                        <i className="fa fa-star star-icon pt-2 pl-4"></i>
+                                    </Col>
+                                    <Col xs={{size : '2'}}>
+                                        <Row className="h-25">
+                                            <p style={{color:'white'}}><b className="bigger-num">{movieTopHead["averageRating"]}</b>/10</p>
+                                        </Row>
+                                        <Row className="mt-3">
+                                            <p style={{color:'white'}}>{movieTopHead["numVotes"]} rated</p>
+                                        </Row>
+                                    </Col>
+                            
+                                </Row>
                                 </Col>
-                        
                             </Row>
-                            </Col>
-                        </Row>
                         
-                    </Container>
+                        </Container>
+                    ) : (
+                        <></>
+                    )}
+                    
                 </div>
                 <ShowTrailer movieId={apiResponse} info={moreInfo}/>
             </>
