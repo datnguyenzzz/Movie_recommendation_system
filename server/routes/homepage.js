@@ -20,7 +20,7 @@ var request = new mssql.Request(conn);
 
 /* GET users listing. */
 router.get('/TrailerShowcase', function(req, res, next) {
-
+  
   var command = "select top 8 ratings.[tconst],[averageRating],[numVotes],[titleType],\n"
                +"[primaryTitle],[startYear],[genres],[isAdult],[runtimeMinutes]\n"
                +"from [title.ratings] as ratings\n"
@@ -29,7 +29,8 @@ router.get('/TrailerShowcase', function(req, res, next) {
                +"and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 90000\n"
                +"and basics.startYear<>N'\\N' and cast(basics.startYear as int) = 2020\n"
                +"order by ratings.averageRating desc";
-
+   
+  //var command = "SELECT top 50 * from [title.episode]";
   request.query(command, (err,table) => {
     if (err) {
       console.log(err);

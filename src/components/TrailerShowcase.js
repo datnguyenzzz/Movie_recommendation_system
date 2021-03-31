@@ -146,7 +146,7 @@ const TrailerShowcase = () => {
             <>
                 <Modal className="movie-info" isOpen={moreInfo} toggle={() => setMoreInfo(!moreInfo)}>
                     <ModalBody className="px-0 py-0">
-                        <MovieInfo movieDB={apiResponse} movieOverview={movieOverview} moviePoster={posterUrl}/>
+                        <MovieInfo movieChosen = {movieTopHead} movieYTDB={apiResponse} movieOverview={movieOverview} moviePoster={posterUrl}/>
                     </ModalBody>
                 </Modal>
 
