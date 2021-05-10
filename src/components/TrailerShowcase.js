@@ -109,6 +109,10 @@ const TrailerShowcase = () => {
             }).then(data => {
                 imdbController.abort();
                 let posterDB = data.results[0];
+                if (posterDB.overview.length > 200) {
+                    posterDB.overview = posterDB.overview.substring(0,200);
+                    posterDB.overview += "...";
+                }
                 setOverview(posterDB.overview);
                 var fullPosterUrl = "http://image.tmdb.org/t/p/w500/"+posterDB.poster_path;
                 setPosterUrl(fullPosterUrl);
@@ -141,10 +145,12 @@ const TrailerShowcase = () => {
         console.log(err);
     })
 
+    //SWITCH ROUTE
     const history = useHistory();
 
     const routeTo = (src) => {
         console.log(src);
+        setMoreInfo(true);
         history.push(src);
     }
 

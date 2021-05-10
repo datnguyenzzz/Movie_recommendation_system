@@ -16,7 +16,10 @@ const MovieInfo = (props) => {
     console.log(pathname);
 
     const fetchData = (movie) => {
-        console.log(movie);
+        if (movie) {
+            controller.abort(); 
+            console.log(movie);
+        }
     }
 
     useEffect(()=> {

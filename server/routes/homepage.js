@@ -69,7 +69,15 @@ router.get('/GetMovie', (req,res,next) => {
 
   var command = "select * from [title.basics]\n" +
                 "where tconst = N'"+movieId_requested+"'";
-  console.log(command)
+
+  request.query(command, (err,table) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      res.send(table);
+    }
+  })
 })
 
 
