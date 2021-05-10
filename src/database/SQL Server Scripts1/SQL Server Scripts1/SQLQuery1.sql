@@ -92,12 +92,23 @@ order by ratings.averageRating * 8000 + ratings.numVotes desc
 
 /*
 select top 10 ratings.[tconst],[averageRating],[numVotes],[titleType],
-[primaryTitle],[startYear],[genres],[isAdult]
+[primaryTitle],[startYear],[genres],[isAdult], [directors], [writers]
 from [title.ratings] as ratings
 inner join [title.basics] basics
-on basics.[tconst] = ratings.[tconst] 
+on basics.[tconst] = ratings.[tconst]
+inner join [title.crew] crew 
+on crew.[tconst] = basics.[tconst]
 and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 90000
 and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2020 or cast(basics.startYear as int) = 2021)
 order by ratings.averageRating desc
+
 */
-SELECT top 50 * from [title.episode];
+
+
+select * from [title.basics] 
+where tconst = N'tt8110330'
+
+
+
+
+/*SELECT * from [title.episode];*/

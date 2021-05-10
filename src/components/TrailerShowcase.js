@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
-import { Container,Row,Col,Button,
-         Modal,ModalBody } from 'reactstrap';
+import { Container,Row,Col,Button } from 'reactstrap';
+import { Switch ,Route, useHistory } from 'react-router-dom';
 
 import AbortController from 'abort-controller';
 
@@ -141,17 +141,20 @@ const TrailerShowcase = () => {
         console.log(err);
     })
 
+    const history = useHistory();
+
+    const routeTo = (src) => {
+        console.log(src);
+        history.push(src);
+    }
+
     if (movieTopHead) {
         return (
-            <>
-                <Modal className="movie-info" isOpen={moreInfo} toggle={() => setMoreInfo(!moreInfo)}>
-                    <ModalBody className="px-0 py-0">
-                        <MovieInfo movieChosen = {movieTopHead} movieYTDB={apiResponse} movieOverview={movieOverview} moviePoster={posterUrl}/>
-                    </ModalBody>
-                </Modal>
-
+            <>  
+                {/*SWITCH ROUTE */}
+            
                 <div className="trick-player">
-                    {(moreInfo === false) ? (
+                    {/*}{(moreInfo === false) ? (*/}
                         <Container className="review-trailer mx-2">
                             {/*<Row>
                                 <MoviePoster movieName={movie_name} movieYear={movie_year}/>
@@ -185,7 +188,9 @@ const TrailerShowcase = () => {
                                 </Row>
                                 <Row>
                                     <Col xs="4" className="py-3">
-                                        <Button className="info-button" onClick={() => setMoreInfo(!moreInfo)} > <i className="fa fa-info-circle fa-lg info-content"> More info</i> </Button>
+                                        <Button className="info-button" onClick = {() => routeTo('/movie/'+movieTopHead["tconst"])}> 
+                                            <i className="fa fa-info-circle fa-lg info-content"> More info</i> 
+                                        </Button>
                                         <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
                                         <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
                                         <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
@@ -208,9 +213,9 @@ const TrailerShowcase = () => {
                             </Row>
                         
                         </Container>
-                    ) : (
+                    {/*) : (
                         <></>
-                    )}
+                    )}*/}
                     
                 </div>
                 <ShowTrailer movieId={apiResponse} info={moreInfo}/>

@@ -58,6 +58,20 @@ router.get('/search', (req,res,next) => {
   )
 })
 
+router.get('/GetMovie', (req,res,next) => {
+
+  var movieId_requested;
+
+  for (const key in req.query) {
+    movieId_requested = key;
+    break;
+  }
+
+  var command = "select * from [title.basics]\n" +
+                "where tconst = N'"+movieId_requested+"'";
+  console.log(command)
+})
+
 
 
 //route + method to /user
