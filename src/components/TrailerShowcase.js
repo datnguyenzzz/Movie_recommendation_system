@@ -29,7 +29,7 @@ const ShowTrailer = ({movieId, info}) => {
         youtubeId = movieId.id.videoId;
         thumbnail = movieId.snippet.thumbnails.high.url;
         //youtubeId = movieId;
-        videoLink = "https://www.youtube.com/embed/"+youtubeId+"?autoplay=1&mute=0&controls=0&origin=http%3A%2F%2Flocalhost%3A3000&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=0&playlist="+youtubeId+"&color=white&loop=1&enablejsapi=1&widgetid=1";
+        videoLink = "https://www.youtube.com/embed/"+youtubeId+"?cc_load_policy=3&autoplay=1&mute=0&controls=0&origin=http%3A%2F%2Flocalhost%3A3000&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=0&playlist="+youtubeId+"&color=white&loop=1&enablejsapi=1&widgetid=1";
     }
     return (
         <div>
@@ -173,8 +173,9 @@ const TrailerShowcase = () => {
         //routeTo(link);
     }
 
-    
+    //Modal controller
     const [modal_controller,set_modal_controller] = useState();
+    const [modal_controller_api, set_modal_controller_api] = useState();
 
     if (movieTopHead) {
         return (
@@ -185,12 +186,15 @@ const TrailerShowcase = () => {
                     set_modal_open(!modal_open);
                     setMoreInfo(!moreInfo);
                     modal_controller.abort();
+                    modal_controller_api.abort();
                 }}>
                     <ModalBody className="px-0 py-0">
                         {/** 
                         <MovieInfo movieYTDB ={apiResponse} movieChosen={movieTopHead} moviePoster={posterUrl} movieOverview={movieOverview} />
                         */}
-                        <MovieInfo movieId = {movieChosenToReview} controller = {modal_controller}/>
+                        <MovieInfo movieId = {movieChosenToReview} 
+                                   controller = {modal_controller}
+                                   controller_api = {modal_controller_api}/>
                     </ModalBody>
                 </Modal>
             
@@ -240,6 +244,7 @@ const TrailerShowcase = () => {
                                             setMoreInfo(!moreInfo);
                                             setMovieChosenToReview(movieTopHead['tconst']);
                                             set_modal_controller(new AbortController());
+                                            set_modal_controller_api(new AbortController());
                                         }}> 
                                             <i className="fa fa-info-circle fa-lg info-content"> More info</i> 
                                         </Button>

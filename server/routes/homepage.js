@@ -70,9 +70,10 @@ router.get('/GetMovie', (req,res,next) => {
   var command = "select [originalTitle], [isAdult],[startYear], [runtimeMinutes], [genres]\n" +
                 "from [title.basics]\n"+
                 "where tconst = N'"+movieId_requested+"'\n" +
-                "select [nconst], [category], [characters]\n" +
-                "from [title.principals]\n" + 
-                "where tconst = N'"+movieId_requested+"'\n";
+                "select principals.[nconst], [category], [characters], [primaryName]\n" +
+                "from [title.principals] as principals \n" + 
+                "inner join [name.basics] namebasics\n"+
+                "on principals.tconst = N'"+movieId_requested+"'and principals.[nconst] = namebasics.nconst\n";
 
   request.query(command, (err,table) => {
     if (err) {
