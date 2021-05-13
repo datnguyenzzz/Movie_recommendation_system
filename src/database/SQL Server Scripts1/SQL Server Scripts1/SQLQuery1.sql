@@ -24,17 +24,6 @@ go
 --(http://www.imdb.com).
 --Used with permission.
 /* 
-title.akas :
-
-titleId (string) - a tconst, an alphanumeric unique identifier of the title
-ordering (integer) – a number to uniquely identify rows for a given titleId
-title (string) – the localized title
-region (string) - the region for this version of the title
-language (string) - the language of the title
-types (array) - Enumerated set of attributes for this alternative title. One or more of the following: "alternative", "dvd", "festival", "tv", "video", "working", "original", "imdbDisplay". New values may be added in the future without warning
-attributes (array) - Additional terms to describe this alternative title, not enumerated
-isOriginalTitle (boolean) – 0: not original title; 1: original title
-
 title.basics :
 tconst (string) - alphanumeric unique identifier of the title
 titleType (string) – the type/format of the title (e.g. movie, short, tvseries, tvepisode, video, etc)
@@ -45,17 +34,6 @@ startYear (YYYY) – represents the release year of a title. In the case of TV S
 endYear (YYYY) – TV Series end year. ‘\N’ for all other title types
 runtimeMinutes – primary runtime of the title, in minutes
 genres (string array) – includes up to three genres associated with the title
-
-title.crew :
-tconst (string) - alphanumeric unique identifier of the title
-directors (array of nconsts) - director(s) of the given title
-writers (array of nconsts) – writer(s) of the given title
-
-title.episode :
-tconst (string) - alphanumeric identifier of episode
-parentTconst (string) - alphanumeric identifier of the parent TV Series
-seasonNumber (integer) – season number the episode belongs to
-episodeNumber (integer) – episode number of the tconst in the TV series
 
 title.principals : 
 tconst (string) - alphanumeric unique identifier of the title
@@ -104,11 +82,92 @@ order by ratings.averageRating desc
 
 */
 
+/*
+delete from [title.principals] 
+where [tconst] not in (select [tconst] from [title.basics])
+*/
 
-select * from [title.basics] 
-where tconst = N'tt8110330'
+/*
+delete from [title.ratings] 
+where [tconst] not in (select [tconst] from [title.basics])
+*/
+/*
+delete from [name.basics]
+where [nconst] not in (select [nconst] from [title.principals]) 
+*/
+/*
+select count(*) from [title.basics]
+select count(*) from [title.principals]
+select count(*) from [title.ratings]
+select count(*) from [name.basics]
+*/
+/*
+select * 
+from [title.principals] as principals 
+left join [title.basics] basics 
+on principals.tconst = basics.tconst
+*/
+
+/*
+delete from [title.basics]
+where startYear=N'\N' or cast(startYear as int) <= 2018
+*/
+
+
+select [originalTitle], [isAdult],[startYear], [runtimeMinutes], [genres]
+from [title.basics]
+where tconst = N'tt7395114'
+
+
+select principals.[nconst], [category], [characters], [primaryName]
+from [title.principals] as principals 
+inner join [name.basics] namebasics
+on principals.tconst = N'tt7395114' and principals.[nconst] = namebasics.nconst
 
 
 
 
 /*SELECT * from [title.episode];*/
+
+/*
+create table Originals (
+	[Name] varchar(50) primary key not null,
+	ISBN varchar(20) not null,
+	Title varchar(50) not null,
+	Author varchar(20) not null
+);
+go
+
+insert into Originals(Name,ISBN,Title,Author)
+	values ('The witcher 1','1232412554','The Last Wish','Andrzej Sapkowski')
+go
+
+insert into Originals(Name,ISBN,Title,Author)
+	values ('The witcher 2','1274384781','Blood of Elves','Andrzej Sapkowski')
+go
+
+insert into Originals(Name,ISBN,Title,Author)
+	values ('The witcher 3','1238977843','Baptism of Fire','Andrzej Sapkowski')
+go
+
+select * from Originals
+go
+
+create table B2 (
+	[Name] varchar(50) primary key not null,
+);
+go
+
+insert into B2(Name)
+	values ('The witcher 1')
+go
+
+select * from B2
+go
+
+delete from Originals 
+where [Name] not in (select [Name] from B2)
+
+select * from Originals
+go
+*/

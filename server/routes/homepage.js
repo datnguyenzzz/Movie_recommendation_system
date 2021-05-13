@@ -67,8 +67,12 @@ router.get('/GetMovie', (req,res,next) => {
     break;
   }
 
-  var command = "select * from [title.basics]\n" +
-                "where tconst = N'"+movieId_requested+"'";
+  var command = "select [originalTitle], [isAdult],[startYear], [runtimeMinutes], [genres]\n" +
+                "from [title.basics]\n"+
+                "where tconst = N'"+movieId_requested+"'\n" +
+                "select [nconst], [category], [characters]\n" +
+                "from [title.principals]\n" + 
+                "where tconst = N'"+movieId_requested+"'\n";
 
   request.query(command, (err,table) => {
     if (err) {

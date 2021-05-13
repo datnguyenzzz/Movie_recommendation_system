@@ -10,9 +10,11 @@ const Main = () => {
     return (
         <>
             <Header/>
+            {/** 
             <Switch>
+                <Route path =' /'/>
                 <Route path = '/movie' component = {MovieInfo}/>
-            </Switch>
+            </Switch>*/}
             <TrailerShowcase/>
             <Footer/>
         </>

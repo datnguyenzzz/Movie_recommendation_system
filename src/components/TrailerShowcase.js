@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react';
-import { Container,Row,Col,Button } from 'reactstrap';
+import { Container,Row,Col,Button,Modal, ModalBody } from 'reactstrap';
 import { Switch ,Route, useHistory } from 'react-router-dom';
 
 import AbortController from 'abort-controller';
 
 import youtube from '../api/youtube';
 import { CONFIGURES } from '../config';
+import useReactPath from '../api/ReactPath';
 import MovieInfo from '../components/MovieInfo'
 
 const ALL_SUGGESTION_MOVIES = 8;
@@ -60,7 +61,15 @@ const TrailerShowcase = () => {
     var [movieOverview,setOverview] = useState();
     var [posterUrl,setPosterUrl] = useState();
     var [movieTopHead,setMovieTopHead] = useState();
+    var [movieChosenToReview, setMovieChosenToReview] = useState();
+
     var [moreInfo, setMoreInfo] = useState(false);
+
+    //const window_path = useReactPath();
+    //useEffect(() => {
+    //    console.log(window_path);
+    //    if (window_path == "/") setMoreInfo(false);
+    //},[window_path])
  
     //1d0Zf9sXlHk
     
@@ -96,7 +105,7 @@ const TrailerShowcase = () => {
             
             let movie_name = movieTopHead["primaryTitle"];
             let movie_year = movieTopHead["startYear"];
-            var requestUrl = "/homepage/search?api_key="+CONFIGURES.IMDB_API_KEY+"&query="+movie_name+"&year="+movie_year+"&page=1";
+            var requestUrl = "/homepage/search?api_key="+CONFIGURES.IMDB_API_KEY+"&query="+movie_name+/*"&year=" + movie_year+*/"&page=1";
 
             await fetch(requestUrl, {
                 method: 'GET',
@@ -109,10 +118,10 @@ const TrailerShowcase = () => {
             }).then(data => {
                 imdbController.abort();
                 let posterDB = data.results[0];
-                if (posterDB.overview.length > 200) {
+                /*if (posterDB.overview.length > 200) {
                     posterDB.overview = posterDB.overview.substring(0,200);
-                    posterDB.overview += "...";
-                }
+                    posterDB.overview += " ...";
+                }*/
                 setOverview(posterDB.overview);
                 var fullPosterUrl = "http://image.tmdb.org/t/p/w500/"+posterDB.poster_path;
                 setPosterUrl(fullPosterUrl);
@@ -150,17 +159,43 @@ const TrailerShowcase = () => {
 
     const routeTo = (src) => {
         console.log(src);
-        setMoreInfo(true);
+        //setMoreInfo(true);
         history.push(src);
     }
+
+    //MODAL TOGGLE 
+    const [modal_open, set_modal_open] = useState(false);
+
+    const toggleModal = () => {
+        //if (movie) setMovieChosenToReview(movie);
+        set_modal_open(!modal_open);
+        setMoreInfo(!moreInfo);
+        //routeTo(link);
+    }
+
+    
+    const [modal_controller,set_modal_controller] = useState();
 
     if (movieTopHead) {
         return (
             <>  
                 {/*SWITCH ROUTE */}
+
+                <Modal className="movie-info" isOpen={modal_open} toggle={() => {
+                    set_modal_open(!modal_open);
+                    setMoreInfo(!moreInfo);
+                    modal_controller.abort();
+                }}>
+                    <ModalBody className="px-0 py-0">
+                        {/** 
+                        <MovieInfo movieYTDB ={apiResponse} movieChosen={movieTopHead} moviePoster={posterUrl} movieOverview={movieOverview} />
+                        */}
+                        <MovieInfo movieId = {movieChosenToReview} controller = {modal_controller}/>
+                    </ModalBody>
+                </Modal>
             
                 <div className="trick-player">
-                    {/*}{(moreInfo === false) ? (*/}
+                    {(moreInfo === false) ? (
                         <Container className="review-trailer mx-2">
                             {/*<Row>
                                 <MoviePoster movieName={movie_name} movieYear={movie_year}/>
@@ -189,12 +224,23 @@ const TrailerShowcase = () => {
                                 </Row>
                                 <Row>
                                     <Col xs={{size : 6, offset : 0}}>
-                                        <p className = "movie-overview">{movieOverview}</p>
+                                        <p className = "movie-overview">
+                                            { movieOverview && movieOverview.length > 150 ? (
+                                                movieOverview.substring(0,150) + " ..."
+                                            ) : (
+                                                movieOverview
+                                            )}
+                                        </p>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col xs="4" className="py-3">
-                                        <Button className="info-button" onClick = {() => routeTo('/movie/'+movieTopHead["tconst"])}> 
+                                        <Button className="info-button" onClick = {() => {
+                                            set_modal_open(!modal_open);
+                                            setMoreInfo(!moreInfo);
+                                            setMovieChosenToReview(movieTopHead['tconst']);
+                                            set_modal_controller(new AbortController());
+                                        }}> 
                                             <i className="fa fa-info-circle fa-lg info-content"> More info</i> 
                                         </Button>
                                         <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
@@ -219,9 +265,9 @@ const TrailerShowcase = () => {
                             </Row>
                         
                         </Container>
-                    {/*) : (
+                    ) : (
                         <></>
-                    )}*/}
+                    )}
                     
                 </div>
                 <ShowTrailer movieId={apiResponse} info={moreInfo}/>
