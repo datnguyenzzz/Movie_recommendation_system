@@ -113,11 +113,13 @@ delete from [title.basics]
 where startYear=N'\N' or cast(startYear as int) <= 2018
 */
 
-
-select [originalTitle], [isAdult],[startYear], [runtimeMinutes], [genres]
-from [title.basics]
-where tconst = N'tt7395114'
-
+/*
+select [originalTitle], [isAdult],[startYear], [runtimeMinutes], [genres],
+[averageRating], [numVotes]
+from [title.basics] as basics 
+inner join [title.ratings] ratings
+on basics.tconst = N'tt7395114' and basics.tconst = ratings.tconst
+*/
 
 select principals.[nconst], [category], [characters], [primaryName]
 from [title.principals] as principals 

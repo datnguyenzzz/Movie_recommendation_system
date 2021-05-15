@@ -249,6 +249,12 @@ span {
     position: absolute;
 }
 
+.star-icon-sm {
+    font-size: 40px;
+    color : #D4AD00;
+    position: absolute;
+}
+
 .review-trailer{
     margin-top: 500px;
 }
@@ -256,6 +262,11 @@ span {
 .bigger-num {
     font-size:35px;
     font-weight: 600;
+}
+
+.bigger-num-sm {
+    font-size:30px;
+    font-weight: 500;
 }
 
 .buttons-review {

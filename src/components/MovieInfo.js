@@ -1,5 +1,5 @@
 import React ,{useState, useEffect} from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 import youtube from '../api/youtube';
 
@@ -106,14 +106,14 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
                     <Container className="movie-info-container">
                         <Row className="pt-3">
                             <Col xs = "3">
-                                <img src={moviePoster} width="100%" height="80%"/> 
+                                <img src={moviePoster} width="220px" height="300px"/> 
                             </Col>
                             <Col>
                                 <Row>
-                                    <Col xs = "9">
+                                    <Col xs = "8">
                                         <Row>
                                             <p className = "movie-info-name"> 
-                                                <b>{movieChosen["primaryTitle"]}</b> 
+                                                <b>{movieChosen["originalTitle"]}</b> 
                                             </p>
                                         </Row>
 
@@ -122,9 +122,29 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
                                                 <p className = "movie-overview">{movieOverview}</p>
                                             </Col>
                                         </Row>
+
+                                        <Row>
+                                            <Col xs = "6">
+                                                <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
+                                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
+                                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
+                                            </Col>
+                                            <Col xs="1">
+                                                <i className="fa fa-star star-icon-sm mt-2"></i>
+                                            </Col>
+
+                                            <Col xs="5">
+                                                <Row className="h-25 pl-4">
+                                                    <p style={{color:'white'}}><b className="bigger-num-sm">{movieChosen["averageRating"]}</b>/10</p>
+                                                </Row>
+                                                <Row className="mt-2 pl-4">
+                                                    <p style={{color:'white'}}>{movieChosen["numVotes"]} rated</p>
+                                                </Row>
+                                            </Col>
+                                        </Row>
                                         
                                     </Col>
-                                    <Col xs = "3">
+                                    <Col xs = "4">
                                         <Row>
                                             <p className = "movie-overview">Director/Writer: </p>
                                         </Row>
