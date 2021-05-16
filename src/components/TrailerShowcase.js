@@ -165,14 +165,6 @@ const TrailerShowcase = () => {
 
     //MODAL TOGGLE 
     const [modal_open, set_modal_open] = useState(false);
-
-    const toggleModal = () => {
-        //if (movie) setMovieChosenToReview(movie);
-        set_modal_open(!modal_open);
-        setMoreInfo(!moreInfo);
-        //routeTo(link);
-    }
-
     //Modal controller
     const [modal_controller,set_modal_controller] = useState();
     const [modal_controller_api, set_modal_controller_api] = useState();

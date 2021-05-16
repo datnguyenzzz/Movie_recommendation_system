@@ -115,6 +115,11 @@ span {
     height: 25px;
 }
 
+.small-font {
+    color : white;
+    font-size: medium;
+}
+
 /*
 .search-bar:focus {
     width: 100%;
@@ -242,6 +247,14 @@ span {
     font-weight: 100;
     font-size: larger;
 }
+
+.movie-overview-thicker {
+    color : white;
+    font-family: monospace;
+    font-weight: 600;
+    font-size: x-large;
+}
+
 
 .star-icon {
     font-size: 50px;

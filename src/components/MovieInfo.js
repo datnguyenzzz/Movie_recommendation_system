@@ -5,6 +5,72 @@ import youtube from '../api/youtube';
 
 import { CONFIGURES } from '../config';
 
+const CelebName = ({movieChosen}) => {
+    console.log(movieChosen);
+
+    const [movieMap, setMovieMap] = useState(new Map());
+
+    movieChosen.map(movie => {
+        const principal = movie["category"].charAt(0).toUpperCase() + movie["category"].slice(1)
+        /*if (movieMap.has(principal) === true) {
+            //console.log(movie["primaryName"]);
+            movieMap.get(principal).push(movie["primaryName"]);
+        } else {
+            movieMap.set(principal, [movie["primaryName"]]); 
+        }*/
+        var celeb_name = movie["primaryName"]; 
+        if (principal==="Actor" || principal==="Actress") {
+            let charName = movie["characters"].split("\[\"").join("("); 
+            charName = charName.split("\"\]").join(")"); 
+            celeb_name = celeb_name + " - " + charName;
+        } else {
+            celeb_name = celeb_name + ", ";
+        }
+
+        if (movieMap[principal]) {
+            movieMap[principal].push(celeb_name);
+        } else {
+            movieMap[principal] = [celeb_name];
+        }
+    })
+
+    Object.keys(movieMap).map(principal => {
+        var len = movieMap[principal].length;
+        if (principal!=="Actor" && principal!=="Actress") {
+            movieMap[principal][len-1] = movieMap[principal][len-1].slice(0,-2);
+        }
+    })
+
+
+    return (
+        <div> 
+            {Object.keys(movieMap).map(principal => {
+                return (
+                    <>
+                        <Row>
+                            <p className="movie-overview-thicker">{principal+": "}</p>
+                        </Row> 
+                        <Row className="pl-4">
+                            {(principal==="Actor" || principal==="Actress") ? (
+                                <>
+                                    {movieMap[principal].map(name => {
+                                        return (
+                                            <p className="small-font">{name}</p>
+                                        );
+                                    })}
+                                </>
+                            ) : (
+                                <p className="small-font">{movieMap[principal]}</p>
+                            )}
+                            
+                        </Row>
+                    </>
+                );
+            })}
+        </div>
+    );
+}
+
 const MovieInfo = ({movieId, controller, controller_api}) => {
     var signal = controller.signal;
     var signal_api = controller_api.signal;
@@ -82,7 +148,7 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
     }).then(data => {
         //console.log(data)
         setContent(data.recordsets[0][0]);
-        setMovieCast(data.recordsets[1][0]);
+        setMovieCast(data.recordsets[1]);
     }).catch(err => {
         console.log(err);
     })
@@ -110,7 +176,7 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
                             </Col>
                             <Col>
                                 <Row>
-                                    <Col xs = "8">
+                                    <Col xs = "7">
                                         <Row>
                                             <p className = "movie-info-name"> 
                                                 <b>{movieChosen["originalTitle"]}</b> 
@@ -144,15 +210,13 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
                                         </Row>
                                         
                                     </Col>
-                                    <Col xs = "4">
+                                    <Col xs = "5">
+                                        <CelebName movieChosen={movieCast}/>
                                         <Row>
-                                            <p className = "movie-overview">Director/Writer: </p>
+                                            <p className = "movie-overview-thicker">Genres: </p>
                                         </Row>
-                                        <Row>
-                                            <p className = "movie-overview">Cast: </p>
-                                        </Row>
-                                        <Row>
-                                            <p className = "movie-overview">Genres: </p>
+                                        <Row  className="pl-4 ">
+                                            <p className="small-font">{movieChosen["genres"].split(",").join(", ")}</p>
                                         </Row>
                                     </Col>
                                 </Row>
