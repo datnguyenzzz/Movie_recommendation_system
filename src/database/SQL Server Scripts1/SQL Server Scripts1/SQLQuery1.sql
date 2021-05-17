@@ -68,19 +68,16 @@ where (basics.startYear<>N'\N' and cast(basics.startYear as int) >= 2020 )
 order by ratings.averageRating * 8000 + ratings.numVotes desc
 */
 
-/*
-select top 10 ratings.[tconst],[averageRating],[numVotes],[titleType],
-[primaryTitle],[startYear],[genres],[isAdult], [directors], [writers]
+
+select top 21 ratings.[tconst],[primaryTitle]
 from [title.ratings] as ratings
 inner join [title.basics] basics
 on basics.[tconst] = ratings.[tconst]
-inner join [title.crew] crew 
-on crew.[tconst] = basics.[tconst]
-and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 90000
-and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2020 or cast(basics.startYear as int) = 2021)
+and cast([averageRating] as int) >= 6 and cast([numVotes] as int) > 50000
+and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2019)
 order by ratings.averageRating desc
 
-*/
+
 
 /*
 delete from [title.principals] 
@@ -121,11 +118,12 @@ inner join [title.ratings] ratings
 on basics.tconst = N'tt7395114' and basics.tconst = ratings.tconst
 */
 
+/*
 select principals.[nconst], [category], [characters], [primaryName]
 from [title.principals] as principals 
 inner join [name.basics] namebasics
 on principals.tconst = N'tt7395114' and principals.[nconst] = namebasics.nconst
-
+*/
 
 
 

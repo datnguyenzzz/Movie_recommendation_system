@@ -120,6 +120,12 @@ span {
     font-size: medium;
 }
 
+.movie-carousel-font {
+    color: white; 
+    font-size:300%;
+    font-weight: 500;
+}
+
 /*
 .search-bar:focus {
     width: 100%;
@@ -347,4 +353,12 @@ span {
 
 .loading-scene {
     margin-left: 180px;
+}
+
+.carousel-control-prev {
+    left : -6%;
+}
+
+.carousel-control-next {
+    right : -6%;
 }

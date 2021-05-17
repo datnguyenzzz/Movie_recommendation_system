@@ -26,7 +26,7 @@ router.get('/TrailerShowcase', function(req, res, next) {
                +"from [title.ratings] as ratings\n"
                +"inner join [title.basics] basics\n"
                +"on basics.[tconst] = ratings.[tconst]\n"
-               +"and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 90000\n"
+               +"and cast([averageRating] as int) >= 6.5 and cast([numVotes] as int) > 70000\n"
                +"and basics.startYear<>N'\\N' and cast(basics.startYear as int) = 2020\n"
                +"order by ratings.averageRating desc";
    
@@ -77,6 +77,32 @@ router.get('/GetMovie', (req,res,next) => {
                 "inner join [name.basics] namebasics\n"+
                 "on principals.tconst = N'"+movieId_requested+"'and principals.[nconst] = namebasics.nconst\n";
 
+  request.query(command, (err,table) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      res.send(table);
+    }
+  })
+})
+
+router.get('/getMovieList', (req,res,next) => {
+
+  var type_requested;
+
+  for (const key in req.query) {
+    type_requested = key;
+    break;
+  }
+
+  var command = "select top 21 ratings.[tconst],[primaryTitle]\n"+
+                "from [title.ratings] as ratings\n"+
+                "inner join [title.basics] basics\n"+
+                "on basics.[tconst] = ratings.[tconst]\n"+
+                "and cast([averageRating] as int) >= 6 and cast([numVotes] as int) > 50000\n"+
+                "and basics.startYear<>N'\N' and (cast(basics.startYear as int) = "+type_requested+")\n"+
+                "order by ratings.averageRating desc"
   request.query(command, (err,table) => {
     if (err) {
       console.log(err);

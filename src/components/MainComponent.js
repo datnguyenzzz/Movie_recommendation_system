@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Header from './Header';
 import Footer from './Footer';
 import TrailerShowcase from './TrailerShowcase';
-import { Switch ,Route } from 'react-router-dom';
-import MovieInfo from './MovieInfo';
+import MovieCarousel from './MovieCarousel';
+
+import Delayed from '../api/Delayed';
 
 const Main = () => {
+    const [stopRender, setStopRender] = useState(true);
+
     return (
         <>
             <Header/>
-            {/** 
-            <Switch>
-                <Route path =' /'/>
-                <Route path = '/movie' component = {MovieInfo}/>
-            </Switch>*/}
             <TrailerShowcase/>
+            <Delayed waitBeforeShow={4000}>
+                <MovieCarousel/>
+            </Delayed>
             <Footer/>
         </>
     )

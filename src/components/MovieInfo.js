@@ -22,7 +22,7 @@ const CelebName = ({movieChosen}) => {
         if (principal==="Actor" || principal==="Actress") {
             let charName = movie["characters"].split("\[\"").join("("); 
             charName = charName.split("\"\]").join(")"); 
-            celeb_name = celeb_name + " - " + charName;
+            celeb_name = celeb_name + " "+ charName;
         } else {
             celeb_name = celeb_name + ", ";
         }

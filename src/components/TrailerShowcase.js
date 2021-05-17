@@ -125,6 +125,7 @@ const TrailerShowcase = () => {
                 setOverview(posterDB.overview);
                 var fullPosterUrl = "http://image.tmdb.org/t/p/w500/"+posterDB.poster_path;
                 setPosterUrl(fullPosterUrl);
+                //props.setStopRender(true);
             }).catch(err => {
                 console.log(err);
             })
@@ -140,18 +141,20 @@ const TrailerShowcase = () => {
         fetchPosterData();
     },[apiResponse])
 
-    fetch('/homepage/TrailerShowcase', {
-        method: 'GET',
-        signal: signal
-    }).then(res => {
-        if (res.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return res.json();
-    }).then(data => {
-        setContent(data.recordsets[0]);
-    }).catch(err => {
-        console.log(err);
+    useEffect( async () => {
+        await fetch('/homepage/TrailerShowcase', {
+            method: 'GET',
+            signal: signal
+        }).then(res => {
+            if (res.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return res.json();
+        }).then(data => {
+            setContent(data.recordsets[0]);
+        }).catch(err => {
+            console.log(err);
+        })
     })
 
     //SWITCH ROUTE
