@@ -68,7 +68,7 @@ where (basics.startYear<>N'\N' and cast(basics.startYear as int) >= 2020 )
 order by ratings.averageRating * 8000 + ratings.numVotes desc
 */
 
-
+/*
 select top 21 ratings.[tconst],[primaryTitle]
 from [title.ratings] as ratings
 inner join [title.basics] basics
@@ -76,7 +76,14 @@ on basics.[tconst] = ratings.[tconst]
 and cast([averageRating] as int) >= 6 and cast([numVotes] as int) > 50000
 and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2019)
 order by ratings.averageRating desc
+*/
 
+select top 21 ratings.[tconst],[primaryTitle]
+from [title.ratings] as ratings
+inner join [title.basics] basics
+on basics.[tconst] = ratings.[tconst]
+and cast([numVotes] as int) > 230000
+order by ratings.averageRating desc
 
 
 /*

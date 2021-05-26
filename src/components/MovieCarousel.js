@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from 'react'; 
-import { Card, CardImg, CardLink, Row, Col,
-         Carousel, CarouselControl, CarouselIndicators, CarouselItem, CardBody } from 'reactstrap';
 import AbortController from 'abort-controller';
 
 import { CONFIGURES } from '../config';
+import CustomCarousel from '../CustomCarousel';
 
-const numMovieEachPage = 7;
-const controller = new AbortController();
-const signal = controller.signal;
 
+var controller = new AbortController();
 var poster_controller = new AbortController();
-const poster_signal = poster_controller.signal;
+
 
 const MovieCarousel = () => {
+
+    var poster_signal = poster_controller.signal;
+    var signal = controller.signal;
 
     var [moviesList,setMoviesList] = useState(); 
     var [all_received, setAllReceived] = useState(false);
@@ -78,112 +78,21 @@ const MovieCarousel = () => {
         })
     })
 
-    //Carousel control 
-    const [activeId, setActiveId] = useState(0);
-    const [animating, setAnimating] = useState(false);
-
-    const next = () => {
-        if (animating) return;
-        const nextId = activeId===moviesList.length/numMovieEachPage - 1 ? 0 : activeId+1;
-        setActiveId(nextId);
-    }
-
-    const previous = () => {
-        if (animating) return;
-        const nextId = activeId===0 ? moviesList.length/numMovieEachPage - 1 : activeId-1;
-        setActiveId(nextId);
-    }
-
-    const goToIndex = (newIndex) => {
-        if (animating) return;
-        setActiveId(newIndex);
-    }
-
 
     if (moviesList && all_received === true) {
         console.log(moviesList);
-        const movieSlides = moviesList.reduce((acc, cur, id, arr) => {
-            if (id%numMovieEachPage === 0) 
-                acc.push(arr.slice(id, id+numMovieEachPage));
-            return acc;
-        },[]).map((items, index) => {
-            return (
-
-                <CarouselItem className="custom-tag"
-                              onExiting={() => setAnimating(false)}
-                              onExited={() => setAnimating(false)}
-                              key={index}>
-                    <Row>
-                        {items.map((item,id) => {
-                            return (
-                                <>
-                                
-                                <Col key={item["tconst"]}>
-
-                                    <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                                        <CardImg top width="10%" height="200px"
-                                                 src={moviesList[id + index * numMovieEachPage]["posterLink"]}
-                                                 />
-                                        <CardBody>
-                                            <CardLink className="movie-overview-thicker" href = "#">{item["primaryTitle"]}</CardLink>
-                                        </CardBody>
-                                    </Card>
-
-                                </Col>
-                                </>
-                            );
-
-                        })}
-                    </Row> 
-                </CarouselItem>
-
-            );
-        })
 
         return (
-            <>
-            <style>
-                    {`.idiot-tag {
-                        margin-top : -100px;
-                    }`}
-            </style>
-            <div className="idiot-tag">
+            
+            <div>
                 <p className = "py-4 pl-5 movie-carousel-font">Top movies in 2020</p>
-                <div>
-                    <style>
-                        {`.custom-tag {
-                            max-width: 100%;
-                            height: 500px;
-                            background: black;
-                        }`}
-                    </style>
-                    {/** <p className = "pl-5 movie-carousel-font">{moviesList[0]["primaryTitle"]}</p>*/}
-                    
-                    <Carousel activeIndex={activeId} next={next} previous={previous}
-                              interval={null}>
-                        <CarouselIndicators items={moviesList.reduce((acc, cur, id, arr) => {
-                                                    if (id%numMovieEachPage === 0) 
-                                                    acc.push(arr.slice(id, id+numMovieEachPage));
-                                                    return acc;
-                                                },[])} 
-                                            activeIndex={activeId} 
-                                            onClickHandler={goToIndex}/>
-                        {movieSlides}
-                        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-                        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-                    </Carousel>
-
-                </div>
-                
+                <CustomCarousel moviesList={moviesList}/> 
             </div>
-            </>
         );
     } else {
         return <></>;
     }
 
-
-    //return <p className="movie-carousel-font"> FUCKFUCKFUCK</p>
 }
 
 export default MovieCarousel;
