@@ -5,11 +5,14 @@ import { CONFIGURES } from '../config';
 import CustomCarousel from '../CustomCarousel';
 
 
-var controller = new AbortController();
-var poster_controller = new AbortController();
+const MovieCarousel = ({request_type}) => {
+    var controller = new AbortController();
+    var poster_controller = new AbortController();
 
+    return <MovieChoice controller = {controller} poster_controller = {poster_controller} request_type={request_type}/>
+}
 
-const MovieCarousel = () => {
+const MovieChoice = ({controller, poster_controller,request_type}) => {
 
     var poster_signal = poster_controller.signal;
     var signal = controller.signal;
@@ -17,7 +20,7 @@ const MovieCarousel = () => {
     var [moviesList,setMoviesList] = useState(); 
     var [all_received, setAllReceived] = useState(false);
 
-    var request_path = '/homepage/getMovieList?2020'; 
+    var request_path = '/homepage/getMovieList?'+request_type; 
 
     const fetchPosterData = async (movieSet) => {
         if (movieSet) {
@@ -83,11 +86,17 @@ const MovieCarousel = () => {
         console.log(moviesList);
 
         return (
-            
-            <div>
-                <p className = "py-4 pl-5 movie-carousel-font">Top movies in 2020</p>
+            <>
+            <style>
+                {`.idiot-tag {
+                    margin-top : -45px;
+                }`}
+            </style>
+            <div className = "idiot-tag">
+                <p className = "py-4 pl-5 movie-carousel-font">Top movies in {request_type}</p>
                 <CustomCarousel moviesList={moviesList}/> 
             </div>
+            </>
         );
     } else {
         return <></>;

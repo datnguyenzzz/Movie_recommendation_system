@@ -16,7 +16,11 @@ const Main = () => {
             <Header/>
             <TrailerShowcase/>
             <Delayed waitBeforeShow={4000}>
-                <MovieCarousel/>
+                <MovieCarousel request_type={2020}/>
+            </Delayed>
+
+            <Delayed waitBeforeShow={4000}>
+                <MovieCarousel request_type={2019}/>
             </Delayed>
             <Footer/>
         </>
