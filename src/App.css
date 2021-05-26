@@ -356,9 +356,27 @@ span {
 }
 
 .carousel-control-prev {
-    left : -6%;
+    top : -10%;
+    left : 93%;
+    height: 10%;
+    width: 3%;
 }
 
 .carousel-control-next {
-    right : -6%;
+    top : -10%;
+    right : 0%;
+    height: 10%;
+    width: 3%;
+}
+
+.carousel-indicators li {
+    border-radius: 50%;
+    width:12px;
+    height:12px;
+}
+
+.carousel-indicators {
+    bottom: 97%;
+    width : 3%;
+    left: 80%;
 }
