@@ -15,20 +15,19 @@ const poster_signal = poster_controller.signal;
 const MovieCarousel = () => {
 
     var [moviesList,setMoviesList] = useState(); 
-    var [moviePosters, setMoviePosters] = useState([]);
+    var [all_received, setAllReceived] = useState(false);
 
     var request_path = '/homepage/getMovieList?2020'; 
 
     const fetchPosterData = async (movieSet) => {
         if (movieSet) {
-
-            var posterLinks = [];
+            
+            //console.log(movieSet);
+            var currentId = 0;
 
             movieSet.map(async (movie) => {
                 let movie_name = movie["primaryTitle"];
                 var requestUrl = "/homepage/search?api_key="+CONFIGURES.IMDB_API_KEY+"&query="+movie_name+/*"&year=" + movie_year+*/"&page=1";
-
-                //console.log(requestUrl);
 
                 poster_controller = new AbortController();
 
@@ -40,7 +39,7 @@ const MovieCarousel = () => {
                         throw new Error("Bad response");
                     }
                     return res.json();
-                }).then(data => {
+                }).then(async data => {
                     poster_controller.abort(); 
                     let posterDB = data.results[0];
                     var fullPosterUrl;
@@ -49,12 +48,15 @@ const MovieCarousel = () => {
                     } else {
                         fullPosterUrl = "https://www.wpbeginner.com/wp-content/uploads/2013/04/wp404error.jpg";
                     }
-                    posterLinks.push(fullPosterUrl);
+                    //moviePosters.push(fullPosterUrl);
+                    movie["posterLink"] = fullPosterUrl;
+                    currentId += 1; 
+                    if (currentId === movieSet.length) {
+                        setAllReceived(true);
+                    }
+                    //await setMoviePosters(curr => [...curr, fullPosterUrl])
                 })
             })
-
-            posterLinks.map(a => console.log(a));
-            setMoviePosters(posterLinks);
         }
     }
 
@@ -67,10 +69,10 @@ const MovieCarousel = () => {
                 throw new Error("Bad response");
             }
             return res.json();
-        }).then(data => {
+        }).then(async data => {
             controller.abort();
-            setMoviesList(data.recordsets[0]);
-            fetchPosterData(data.recordsets[0]);
+            await setMoviesList(data.recordsets[0]);
+            await fetchPosterData(data.recordsets[0]);
         }).catch(err => {
             console.log(err)
         })
@@ -98,10 +100,8 @@ const MovieCarousel = () => {
     }
 
 
-    if (moviesList && moviePosters ) {
-
-        console.log(moviePosters.length);
-
+    if (moviesList && all_received === true) {
+        console.log(moviesList);
         const movieSlides = moviesList.reduce((acc, cur, id, arr) => {
             if (id%numMovieEachPage === 0) 
                 acc.push(arr.slice(id, id+numMovieEachPage));
@@ -116,11 +116,13 @@ const MovieCarousel = () => {
                     <Row>
                         {items.map((item,id) => {
                             return (
+                                <>
+                                
                                 <Col key={item["tconst"]}>
 
                                     <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
                                         <CardImg top width="10%" height="200px"
-                                                 src={moviePosters[id + index * numMovieEachPage]}
+                                                 src={moviesList[id + index * numMovieEachPage]["posterLink"]}
                                                  />
                                         <CardBody>
                                             <CardLink className="movie-overview-thicker" href = "#">{item["primaryTitle"]}</CardLink>
@@ -128,6 +130,7 @@ const MovieCarousel = () => {
                                     </Card>
 
                                 </Col>
+                                </>
                             );
 
                         })}
