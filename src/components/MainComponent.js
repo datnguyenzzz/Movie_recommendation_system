@@ -31,26 +31,27 @@ const Main = () => {
             <Header/>
             <p>{requestCount}</p>
             <TrailerShowcase value={moreInfo} onChange={triggerMoreInfo}/>
-            {(moreInfo === false) ? (
-                <>
-                    <Delayed waitBeforeShow={4000}>
-                        <MovieCarousel value = {MOVIES_2020}/>
-                    </Delayed>
-                    <Delayed waitBeforeShow={4000}>
-                        <MovieCarousel value = {MOVIES_2019}/>
-                    </Delayed>
 
-                    <Delayed waitBeforeShow={4000}>
-                        <MovieCarousel value = {MOVIES_RATING}/>
-                    </Delayed>
+            <Delayed waitBeforeShow={4000}>
+                <MovieCarousel request_type = {MOVIES_2020} 
+                            value = {moreInfo} onChange={triggerMoreInfo}/>
+            </Delayed>
 
-                    <Delayed waitBeforeShow={4000}>
-                        <MovieCarousel value = {MOVIES_REACT}/>
-                    </Delayed>
-                </>
-            ) : (
-                <></>
-            )}
+            <Delayed waitBeforeShow={4000}>
+                <MovieCarousel request_type = {MOVIES_2019} 
+                            value = {moreInfo} onChange={triggerMoreInfo}/>
+            </Delayed>
+
+            <Delayed waitBeforeShow={4000}>
+                <MovieCarousel request_type = {MOVIES_RATING} 
+                            value = {moreInfo} onChange={triggerMoreInfo}/>
+            </Delayed>
+
+            <Delayed waitBeforeShow={4000}>
+                <MovieCarousel request_type = {MOVIES_REACT} 
+                            value = {moreInfo} onChange={triggerMoreInfo}/>
+            </Delayed>
+
         
             <Footer/>
         </>

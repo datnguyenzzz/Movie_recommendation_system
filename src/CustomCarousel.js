@@ -1,10 +1,19 @@
 import React, {useState} from 'react'; 
 import { Card, CardImg, CardLink, Row, Col,
-         Carousel, CarouselControl, CarouselIndicators, CarouselItem, CardBody } from 'reactstrap';
+         Carousel, CarouselControl, CarouselIndicators, 
+         CarouselItem, CardBody, Modal, ModalBody } from 'reactstrap';
+
+import MovieInfo from './components/MovieInfo';
 
 const numMovieEachPage = 7;
 
-const CustomCarousel = ({moviesList}) => {
+const CustomCarousel = (props) => { 
+
+    var moviesList = props.moviesList;
+
+    var switchMoreInfo = () => {
+        props.onChange(!props.value);
+    }
 
     const [activeId, setActiveId] = useState(0);
     const [animating, setAnimating] = useState(false);
@@ -49,7 +58,14 @@ const CustomCarousel = ({moviesList}) => {
                                              src={moviesList[id + index * numMovieEachPage]["posterLink"]}
                                              />
                                     <CardBody>
-                                        <CardLink className="movie-overview-thicker" href = "#">{item["primaryTitle"]}</CardLink>
+                                        <CardLink className="movie-overview-thicker" href = "#" onClick={() => {
+                                            set_modal_open(!modal_open);
+                                            switchMoreInfo();
+                                            setMovieChosenToReview(item["tconst"])
+                                            set_modal_controller(new AbortController());
+                                            set_modal_controller_api(new AbortController());
+
+                                        }}>{item["primaryTitle"]}</CardLink>
                                     </CardBody>
                                 </Card>
 
@@ -64,7 +80,28 @@ const CustomCarousel = ({moviesList}) => {
         );
     })
 
+    const [modal_open, set_modal_open] = useState(false);
+    const [modal_controller,set_modal_controller] = useState();
+    const [modal_controller_api, set_modal_controller_api] = useState();
+    const [movieChosenToReview, setMovieChosenToReview] = useState();
+
+
     return (
+        <>
+
+        <Modal className="movie-info" isOpen={modal_open} toggle ={() => {
+            set_modal_open(!modal_open); 
+            switchMoreInfo(); 
+            modal_controller.abort();
+            modal_controller_api.abort();
+        }} >
+            <ModalBody>
+                <MovieInfo movieId={movieChosenToReview} 
+                           controller = {modal_controller}
+                           controller_api = {modal_controller_api}/>
+            </ModalBody>
+
+        </Modal>
         <div>
             <style>
                 {`.custom-tag {
@@ -90,6 +127,7 @@ const CustomCarousel = ({moviesList}) => {
             </Carousel>
 
         </div>
+        </>
     )
 }
 

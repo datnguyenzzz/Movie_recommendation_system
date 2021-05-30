@@ -12,8 +12,13 @@ const MovieCarousel = (props) => {
     var controller = new AbortController();
     var poster_controller = new AbortController();
 
-    return <MovieChoice controller = {controller} poster_controller = {poster_controller} 
-                        value={props.value}/>
+    if (props.value === false) {
+        return <MovieChoice controller = {controller} poster_controller = {poster_controller} 
+                            request_type={props.request_type}
+                            value = {props.value} onChange={props.onChange}/>
+    } else {
+        return <></>;
+    }
 }
 
 const MovieChoice = (props) => {
@@ -27,7 +32,7 @@ const MovieChoice = (props) => {
     var [moviesList,setMoviesList] = useState(); 
     var [all_received, setAllReceived] = useState(false);
 
-    var request_type = props.value;
+    var request_type = props.request_type;
 
     var requestNeed = REQUESTS[request_type];
     var request_path = '/homepage/getMovieList?'+requestNeed; 
@@ -113,7 +118,8 @@ const MovieChoice = (props) => {
                         <p className = "py-4 pl-5 movie-carousel-font">Most popular movies</p>
                     )
                 )}
-                <CustomCarousel moviesList={moviesList}/> 
+                <CustomCarousel moviesList={moviesList}
+                                value = {props.value} onChange = {props.onChange}/> 
             </div>
             </>
         );
