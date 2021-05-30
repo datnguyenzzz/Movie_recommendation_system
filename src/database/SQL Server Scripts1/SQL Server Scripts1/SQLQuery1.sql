@@ -78,6 +78,7 @@ and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2019)
 order by ratings.averageRating desc
 */
 
+
 select top 21 ratings.[tconst],[primaryTitle]
 from [title.ratings] as ratings
 inner join [title.basics] basics

@@ -54,7 +54,7 @@ const ShowTrailer = ({movieId, info}) => {
     )
 }
 
-const TrailerShowcase = () => {
+const TrailerShowcase = (props) => {
     var [contentDB, setContent] = useState();
     var [apiResponse, setApiRes] = useState();
 
@@ -63,7 +63,9 @@ const TrailerShowcase = () => {
     var [movieTopHead,setMovieTopHead] = useState();
     var [movieChosenToReview, setMovieChosenToReview] = useState();
 
-    var [moreInfo, setMoreInfo] = useState(false);
+    var switchMoreInfo = () => {
+        props.onChange(!props.value);
+    }
 
     //const window_path = useReactPath();
     //useEffect(() => {
@@ -179,7 +181,7 @@ const TrailerShowcase = () => {
 
                 <Modal className="movie-info" isOpen={modal_open} toggle={() => {
                     set_modal_open(!modal_open);
-                    setMoreInfo(!moreInfo);
+                    switchMoreInfo();
                     modal_controller.abort();
                     modal_controller_api.abort();
                 }}>
@@ -194,7 +196,7 @@ const TrailerShowcase = () => {
                 </Modal>
             
                 <div className="trick-player">
-                    {(moreInfo === false) ? (
+                    {(props.value === false) ? (
                         <Container className="review-trailer mx-2">
                             {/*<Row>
                                 <MoviePoster movieName={movie_name} movieYear={movie_year}/>
@@ -236,7 +238,7 @@ const TrailerShowcase = () => {
                                     <Col xs="4" className="py-3">
                                         <Button className="info-button" onClick = {() => {
                                             set_modal_open(!modal_open);
-                                            setMoreInfo(!moreInfo);
+                                            switchMoreInfo();
                                             setMovieChosenToReview(movieTopHead['tconst']);
                                             set_modal_controller(new AbortController());
                                             set_modal_controller_api(new AbortController());
@@ -270,7 +272,7 @@ const TrailerShowcase = () => {
                     )}
                     
                 </div>
-                <ShowTrailer movieId={apiResponse} info={moreInfo}/>
+                <ShowTrailer movieId={apiResponse} info={props.value}/>
             </>
         )
     } else {

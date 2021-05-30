@@ -96,13 +96,35 @@ router.get('/getMovieList', (req,res,next) => {
     break;
   }
 
-  var command = "select top 21 ratings.[tconst],[primaryTitle]\n"+
+  var command; 
+  if ((type_requested === "2020") || (type_requested === "2019")) {
+      console.log(type_requested);
+      command = "select top 21 ratings.[tconst],[primaryTitle]\n"+
+                  "from [title.ratings] as ratings\n"+
+                  "inner join [title.basics] basics\n"+
+                  "on basics.[tconst] = ratings.[tconst]\n"+
+                  "and cast([averageRating] as int) >= 6 and cast([numVotes] as int) > 50000\n"+
+                  "and basics.startYear<>N'\N' and (cast(basics.startYear as int) = "+type_requested+")\n"+
+                  "order by ratings.averageRating desc"
+  } 
+  else if (type_requested === "highest_rating") {
+      console.log(type_requested);
+      command = "select top 21 ratings.[tconst],[primaryTitle]\n"+
                 "from [title.ratings] as ratings\n"+
                 "inner join [title.basics] basics\n"+
                 "on basics.[tconst] = ratings.[tconst]\n"+
-                "and cast([averageRating] as int) >= 6 and cast([numVotes] as int) > 50000\n"+
-                "and basics.startYear<>N'\N' and (cast(basics.startYear as int) = "+type_requested+")\n"+
+                "and cast([numVotes] as int) > 230000\n"+
                 "order by ratings.averageRating desc"
+  }
+  else if (type_requested === "highest_react") {
+      console.log(type_requested);
+      command = "select top 21 ratings.[tconst],[primaryTitle]\n"+
+                "from [title.ratings] as ratings\n"+
+                "inner join [title.basics] basics\n"+
+                "on basics.[tconst] = ratings.[tconst]\n"+
+                "order by ratings.numVotes desc"
+  }
+  
   request.query(command, (err,table) => {
     if (err) {
       console.log(err);

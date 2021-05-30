@@ -4,15 +4,22 @@ import AbortController from 'abort-controller';
 import { CONFIGURES } from '../config';
 import CustomCarousel from '../CustomCarousel';
 
+const REQUESTS = ["2020","2019","highest_rating","highest_react"];
+const SIZE_REQUESTS = 4;
 
-const MovieCarousel = ({request_type}) => {
+
+const MovieCarousel = (props) => {
     var controller = new AbortController();
     var poster_controller = new AbortController();
 
-    return <MovieChoice controller = {controller} poster_controller = {poster_controller} request_type={request_type}/>
+    return <MovieChoice controller = {controller} poster_controller = {poster_controller} 
+                        value={props.value}/>
 }
 
-const MovieChoice = ({controller, poster_controller,request_type}) => {
+const MovieChoice = (props) => {
+
+    var controller = props.controller;
+    var poster_controller = props.poster_controller;
 
     var poster_signal = poster_controller.signal;
     var signal = controller.signal;
@@ -20,7 +27,11 @@ const MovieChoice = ({controller, poster_controller,request_type}) => {
     var [moviesList,setMoviesList] = useState(); 
     var [all_received, setAllReceived] = useState(false);
 
-    var request_path = '/homepage/getMovieList?'+request_type; 
+    var request_type = props.value;
+
+    var requestNeed = REQUESTS[request_type];
+    var request_path = '/homepage/getMovieList?'+requestNeed; 
+    console.log(request_path);
 
     const fetchPosterData = async (movieSet) => {
         if (movieSet) {
@@ -93,7 +104,15 @@ const MovieChoice = ({controller, poster_controller,request_type}) => {
                 }`}
             </style>
             <div className = "idiot-tag">
-                <p className = "py-4 pl-5 movie-carousel-font">Top movies in {request_type}</p>
+                {(requestNeed === "2020" || requestNeed === "2019") ? (
+                    <p className = "py-4 pl-5 movie-carousel-font">Top movies in {requestNeed}</p>
+                ) : (
+                    (requestNeed === "highest_rating") ? (
+                        <p className = "py-4 pl-5 movie-carousel-font">Top highest rating movies</p>
+                    ) : (
+                        <p className = "py-4 pl-5 movie-carousel-font">Most popular movies</p>
+                    )
+                )}
                 <CustomCarousel moviesList={moviesList}/> 
             </div>
             </>
