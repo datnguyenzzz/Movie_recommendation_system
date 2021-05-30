@@ -61,10 +61,16 @@ const TrailerShowcase = (props) => {
     var [movieOverview,setOverview] = useState();
     var [posterUrl,setPosterUrl] = useState();
     var [movieTopHead,setMovieTopHead] = useState();
-    var [movieChosenToReview, setMovieChosenToReview] = useState();
+    //var [movieChosenToReview, setMovieChosenToReview] = useState();
 
+    /*
     var switchMoreInfo = () => {
         props.onChange(!props.value);
+    }*/
+
+    var openInfoModal = (newMovieId, newMoreInfo, newModalOpen,
+                         newController, newControllerApi) => {
+        props.onChange(newMovieId, newMoreInfo, newModalOpen,newController, newControllerApi);
     }
 
     //const window_path = useReactPath();
@@ -168,17 +174,18 @@ const TrailerShowcase = (props) => {
         history.push(src);
     }
 
+    /*
     //MODAL TOGGLE 
     const [modal_open, set_modal_open] = useState(false);
     //Modal controller
     const [modal_controller,set_modal_controller] = useState();
     const [modal_controller_api, set_modal_controller_api] = useState();
-
+    */
     if (movieTopHead) {
         return (
             <>  
                 {/*SWITCH ROUTE */}
-
+                {/** 
                 <Modal className="movie-info" isOpen={modal_open} toggle={() => {
                     set_modal_open(!modal_open);
                     switchMoreInfo();
@@ -186,14 +193,12 @@ const TrailerShowcase = (props) => {
                     modal_controller_api.abort();
                 }}>
                     <ModalBody className="px-0 py-0">
-                        {/** 
-                        <MovieInfo movieYTDB ={apiResponse} movieChosen={movieTopHead} moviePoster={posterUrl} movieOverview={movieOverview} />
-                        */}
+                         
                         <MovieInfo movieId = {movieChosenToReview} 
                                    controller = {modal_controller}
                                    controller_api = {modal_controller_api}/>
                     </ModalBody>
-                </Modal>
+                </Modal>*/}
             
                 <div className="trick-player">
                     {(props.value === false) ? (
@@ -237,11 +242,19 @@ const TrailerShowcase = (props) => {
                                 <Row>
                                     <Col xs="4" className="py-3">
                                         <Button className="info-button" onClick = {() => {
+                                            /*
                                             set_modal_open(!modal_open);
                                             switchMoreInfo();
                                             setMovieChosenToReview(movieTopHead['tconst']);
                                             set_modal_controller(new AbortController());
                                             set_modal_controller_api(new AbortController());
+                                            */
+                                            openInfoModal(movieTopHead['tconst'], 
+                                                          !props.value, 
+                                                          true,
+                                                          new AbortController(),
+                                                          new AbortController())
+
                                         }}> 
                                             <i className="fa fa-info-circle fa-lg info-content"> More info</i> 
                                         </Button>
