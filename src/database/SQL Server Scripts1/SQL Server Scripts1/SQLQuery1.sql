@@ -68,8 +68,14 @@ knownForTitles (array of tconsts) – titles the person is known for
 use systemDB;
 go
 
+/*
+insert into [Users.data]([user_id],[user_name],[password],[movies_saved],[movies_liked],[movies_disliked]) 
+values ('11meme11','thanhdat','123123','','','')
+go*/ 
+
 select * from [Users.data]
-go
+where [user_name] = N'datnt'
+
 
 /*
 select top 10 *

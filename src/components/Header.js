@@ -3,6 +3,9 @@ import { Navbar, NavbarBrand, Modal, ModalBody,
          Nav, NavItem, NavLink, FormGroup, Form,
          Label, Input, Button, ModalFooter } from 'reactstrap';
 
+import axios from 'axios';
+import { CONFIGURES } from '../config';
+
 const networkRequest = () => {
     return new Promise((resolve) => setTimeout(resolve,2000));
 }
@@ -57,6 +60,39 @@ const Header = () => {
         }
     },[searchIcon,iconClicked]) 
 
+    /* SIGN IN and SIGN UP */
+
+    const [usernameSignup, setUserNameSignup] = useState(); 
+    const [passwordSignup, setPasswordSignup] = useState();
+
+    const handleUsernameChange = (event) => {
+        setUserNameSignup(event.target.value);
+    }
+
+    const handlePasswordChange = (event) => {
+        setPasswordSignup(event.target.value);
+    }
+
+    const handleSignupSubmit = event => {
+        
+        axios({
+            method: 'post',
+            url: '/users/signUp',
+            data: {
+                username : usernameSignup, 
+                password : passwordSignup
+            }
+          })
+             .then(res => {
+                 console.log(res);
+             })
+
+        console.log(usernameSignup);
+        console.log(passwordSignup);
+        
+        event.preventDefault();
+    }
+
     return (
             <Navbar className="bg-transparent pos-nav" expand="md" sticky="top">
                 {/* sign in modal */}
@@ -103,28 +139,31 @@ const Header = () => {
                 <Modal isOpen={signupPop} size="sm" toggle={popupSignupModal}
                    className="rounded modal-custom" >
                     <ModalBody> 
-                        <Form>
+                        {/*<Form method="POST" action="/users/signUp" >*/}
+                        <Form onSubmit={handleSignupSubmit} >
                             <FormGroup className='mb-2'>
                                 <Label className="thick-label-text">Create account</Label>
                             </FormGroup>
                             <FormGroup className='mb-2'>
                                 <Label className="label-text" htmlFor='username'>Your name</Label>
-                                <Input className="signing-input" type="text" />
+                                <Input className="signing-input" type="text" onChange={handleUsernameChange} />
                             </FormGroup>
                             <FormGroup className='my-2'>
                                 <Label className="label-text" htmlFor='email'>Email</Label>
-                                <Input className="signing-input" type="text" />
+                                <Input className="signing-input" type="text" 
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                       title ="Email invalid" />
                             </FormGroup>
                             <FormGroup className='my-2'>
                                 <Label className="label-text" htmlFor='password'>Password</Label>
-                                <Input className="signing-input" type="password" />
+                                <Input className="signing-input" type="password" onChange={handlePasswordChange} />
                             </FormGroup>
                             <FormGroup className='my-2'>
                                 <Label className="label-text" >Re-enter Password</Label>
                                 <Input className="signing-input" type="password" />
                             </FormGroup>
                             <FormGroup className='mt-3 mb-2'>
-                                <Button className="signin-button" block>
+                                <Button className="signin-button" type="submit" block>
                                     Create your account
                                 </Button>
                             </FormGroup>

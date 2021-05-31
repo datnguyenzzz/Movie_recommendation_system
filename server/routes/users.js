@@ -18,6 +18,7 @@ var conn = new mssql.connect(dbConfig, (err) => {
 });
 var request = new mssql.Request(conn);
 
+
 /* AES 256  */
 
 const crypto = require('crypto');
@@ -40,9 +41,17 @@ function decrypt(text) {
     decrypted = Buffer.concat([decrypted, decipher.final()]);
     return decrypted.toString();
 }
+/************/
 
 router.post('/signUp', (req,res,next) => {
-    console.log('someone wanna signing up mewmew');
+    console.log('SOMEONE TRYING TO SIGN UP');
+    console.log(req.body);
+    console.log(req.body.username);
+    console.log(req.body.password);
+
+    var encrypted_pw = encrypt(req.body.password).encryptedData;
+
+    res.send({password: encrypted_pw});
 })
 
 module.exports = router;
