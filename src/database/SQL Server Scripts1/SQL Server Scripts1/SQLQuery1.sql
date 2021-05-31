@@ -24,6 +24,14 @@ go
 --(http://www.imdb.com).
 --Used with permission.
 /* 
+
+Users.data:
+[user_id]
+[user_name]
+[password]
+[movies_saved]
+[movies_liked]
+[movies_disliked]
 title.basics :
 tconst (string) - alphanumeric unique identifier of the title
 titleType (string) – the type/format of the title (e.g. movie, short, tvseries, tvepisode, video, etc)
@@ -58,6 +66,10 @@ knownForTitles (array of tconsts) – titles the person is known for
 */
 
 use systemDB;
+go
+
+select * from [Users.data]
+go
 
 /*
 select top 10 *
@@ -78,7 +90,7 @@ and basics.startYear<>N'\N' and (cast(basics.startYear as int) = 2019)
 order by ratings.averageRating desc
 */
 
-
+/*
 select top 21 ratings.[tconst],[primaryTitle]
 from [title.ratings] as ratings
 inner join [title.basics] basics
@@ -86,7 +98,7 @@ on basics.[tconst] = ratings.[tconst]
 and cast([numVotes] as int) > 230000
 order by ratings.averageRating desc
 
-
+*/
 /*
 delete from [title.principals] 
 where [tconst] not in (select [tconst] from [title.basics])
