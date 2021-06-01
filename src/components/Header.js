@@ -84,7 +84,9 @@ const Header = () => {
             }
           })
              .then(res => {
-                 console.log(res);
+                 var data_received = res.data;  
+                 if (data_received["error"]) alert(data_received["error"]);
+                 else alert(data_received["password"]);
              })
 
         console.log(usernameSignup);

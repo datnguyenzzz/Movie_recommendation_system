@@ -50,8 +50,23 @@ router.post('/signUp', (req,res,next) => {
     console.log(req.body.password);
 
     var encrypted_pw = encrypt(req.body.password).encryptedData;
+    
+    var finding_command = "select count(*) as [number_users] from [Users.data]\n"+
+                          "where [user_name] = N'" + req.body.username + "'";
 
-    res.send({password: encrypted_pw});
+    request.query(finding_command, (err,table) => {
+      if (err) {
+        console.log(err);
+        return;
+      } else {
+        var found = table.recordsets[0][0]['number_users'];
+        if (found > 0) {
+          res.send({error : "Username had been used"})
+        } else {
+          res.send({password : encrypted_pw});
+        }
+      }
+    })
 })
 
 module.exports = router;
