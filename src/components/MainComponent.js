@@ -78,8 +78,7 @@ const Main = () => {
                             value = {moreInfo} onChange={triggerModalInfo}/>
                 </>
             ) : (
-                <>
-                </>
+                <></>
             )}
             
         

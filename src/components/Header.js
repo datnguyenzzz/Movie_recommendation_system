@@ -16,6 +16,10 @@ const Header = (props) => {
         props.onChange(newvalue);
     }
 
+    const handleUserLogout = () => {
+        props.onChange("");
+    }
+
     //sign in modal pop up 
     const [signinPopup,setSigninPopup] = useState(false);
     const [signupPop, setSignuPop] = useState(false);
@@ -279,9 +283,16 @@ const Header = (props) => {
                             <NavLink href="#" className='px-3 py-1 thick'> Sign in </NavLink>
                         </NavItem>
                     ) : (
+                        <>
                         <NavItem className="navigator rounded"> 
                             <NavLink href="#" className='px-3 py-1 thick'> {props.value}  </NavLink> 
                         </NavItem>
+                        <NavItem className="navigator rounded">
+                            <NavLink href="#" className='px-1 py-1' onClick={handleUserLogout}> 
+                                <i className="fa fa-sign-out icon-footer-2"></i>
+                            </NavLink>
+                        </NavItem>
+                        </>
                     )}
                     
                 </Nav>

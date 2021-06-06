@@ -194,6 +194,12 @@ span {
     color: white;
 }
 
+.icon-footer-2 {
+    font-size: 35px;
+    background-color: transparent;
+    color: white;
+}
+
 .icon-footer:hover {
     transform :scale(2);
 }
@@ -350,6 +356,10 @@ span {
 
 .movie-info-container {
     margin-top : -35px;
+}
+
+.loading-scene-main {
+    margin-left: 35%;
 }
 
 .loading-scene {
