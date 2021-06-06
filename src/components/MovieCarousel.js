@@ -19,7 +19,7 @@ const MovieCarousel = (props) => {
     } else {
         return <></>;
     }
-}
+};
 
 const MovieChoice = (props) => {
 

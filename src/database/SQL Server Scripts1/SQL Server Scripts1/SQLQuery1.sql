@@ -73,9 +73,12 @@ insert into [Users.data]([user_id],[user_name],[password],[movies_saved],[movies
 values ('11meme11','thanhdat','123123','','','')
 go*/ 
 
-select count(*) as [number_users] from [Users.data]
-where [user_name] = N'datnt'
 
+select * from [Users.data]
+where [user_name] = N'datnnt'
+
+
+select * from [Users.data];
 
 /*
 select top 10 *

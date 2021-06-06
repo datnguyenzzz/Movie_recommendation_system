@@ -10,7 +10,11 @@ const networkRequest = () => {
     return new Promise((resolve) => setTimeout(resolve,2000));
 }
 
-const Header = () => {
+const Header = (props) => {
+
+    const triggerSignIn = (newvalue) => {
+        props.onChange(newvalue);
+    }
 
     //sign in modal pop up 
     const [signinPopup,setSigninPopup] = useState(false);
@@ -86,7 +90,11 @@ const Header = () => {
              .then(res => {
                  var data_received = res.data;  
                  if (data_received["error"]) alert(data_received["error"]);
-                 else alert(data_received["password"]);
+                 else {
+                    setSignuPop(false);
+                    setSigninPopup(false);
+                    triggerSignIn(data_received["username"]);
+                 }
              })
 
         console.log(usernameSignup);
@@ -95,26 +103,60 @@ const Header = () => {
         event.preventDefault();
     }
 
+    const [usernameSignin, setUsernameSignin] = useState();
+    const [passwordSignin, setPasswordSignin] = useState();
+
+    const handleSigninUsername = (event) => {
+        setUsernameSignin(event.target.value);
+    }
+
+    const handleSigninPassword = (event) => {
+        setPasswordSignin(event.target.value);
+    }
+
+    const handleSigninSubmit = event => {
+        axios({
+            method : 'post',
+            url: '/users/signIn',
+            data: {
+                username : usernameSignin, 
+                password : passwordSignin
+            }
+        })
+        .then(res => {
+            var data_received = res.data;  
+            if (data_received["error"]) alert(data_received["error"]);
+            else {
+                setSignuPop(false);
+                setSigninPopup(false);
+                triggerSignIn(data_received["username"]);
+            }
+        })
+
+        event.preventDefault();
+    }
+
+
     return (
             <Navbar className="bg-transparent pos-nav" expand="md" sticky="top">
                 {/* sign in modal */}
                 <Modal isOpen={signinPopup} size="sm" toggle={popupSigninModal} 
                        className="rounded modal-custom">
                     <ModalBody> 
-                        <Form>
+                        <Form onSubmit={handleSigninSubmit}>
                             <FormGroup className='mb-2'>
                                 <Label className="thick-label-text">Sign-In</Label>
                             </FormGroup>
                             <FormGroup className='my-2'>
                                 <Label className="label-text" htmlFor='username'>Username</Label>
-                                <Input className="signing-input" type="text" />
+                                <Input className="signing-input" type="text" onChange={handleSigninUsername} />
                             </FormGroup>
                             <FormGroup className='my-2'>
                                 <Label className="label-text" htmlFor='password'>Password</Label>
-                                <Input className="signing-input" type="password" />
+                                <Input className="signing-input" type="password" onChange={handleSigninPassword} />
                             </FormGroup>
                             <FormGroup className='mt-3 mb-2'>
-                                <Button className="signin-button" disabled={signinLoading} 
+                                <Button className="signin-button" type="submit" disabled={signinLoading} 
                                         onClick={!signinLoading ? signinClicked : null} block>
                                             {signinLoading ? 'Loading...' : 'Sign-in'}
                                 </Button>
@@ -229,9 +271,14 @@ const Header = () => {
                         </Form>
                     </NavItem>
                     
-                    <NavItem className="navigator rounded" onClick = {popupSigninModal}> 
-                        <NavLink href="#" className='px-3 py-1 thick'> Sign in </NavLink>
-                    </NavItem>
+                    {(props.value === "") ? (
+                        <NavItem className="navigator rounded" onClick = {popupSigninModal}> 
+                            <NavLink href="#" className='px-3 py-1 thick'> Sign in </NavLink>
+                        </NavItem>
+                    ) : (
+                        <p> {props.value} </p>
+                    )}
+                    
                 </Nav>
 
             </Navbar>

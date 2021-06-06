@@ -207,6 +207,7 @@ span {
 .pos-nav {
     width: 100%;
     position: absolute;
+    z-index: 3000;
 }
 
 .player-wrapper {

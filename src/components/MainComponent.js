@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useMemo} from 'react';
 
 import { Modal, ModalBody } from 'reactstrap';
 
@@ -20,9 +20,10 @@ const Main = () => {
     const [stopRender, setStopRender] = useState(true);
     const [moreInfo, setMoreInfo] = useState(false);
     const [requestCount, setRequestType] = useState(0);
+    const [userSignedIn, setUserSignedIn] = useState("");
 
-    const triggerMoreInfo = (newvalue) => {
-        setMoreInfo(newvalue);
+    const triggerSignIn = (newvalue) => {
+        setUserSignedIn(newvalue);
     }
 
     //MODAL TOGGLE 
@@ -44,7 +45,7 @@ const Main = () => {
 
     return (
         <>
-            <Header/>
+            <Header value = {userSignedIn} onChange={triggerSignIn}/>
 
             <Modal className="movie-info" isOpen={modal_open} toggle={() => {
                 set_modal_open(false); 
@@ -61,27 +62,26 @@ const Main = () => {
             </Modal>
             
             <TrailerShowcase value={moreInfo} onChange={triggerModalInfo}/>
-
-            <Delayed waitBeforeShow={4000}>
-                <MovieCarousel request_type = {MOVIES_2020} 
+            
+            {(userSignedIn !== "") ? (
+                <>
+                    <MovieCarousel request_type = {MOVIES_2020} 
                             value = {moreInfo} onChange={triggerModalInfo}/>
-            </Delayed>
-
-            <Delayed waitBeforeShow={4000}>
-                <MovieCarousel request_type = {MOVIES_2019} 
+    
+                    <MovieCarousel request_type = {MOVIES_2019} 
                             value = {moreInfo} onChange={triggerModalInfo}/>
-            </Delayed>
-
-            <Delayed waitBeforeShow={4000}>
-                <MovieCarousel request_type = {MOVIES_RATING} 
+            
+                    <MovieCarousel request_type = {MOVIES_RATING} 
                             value = {moreInfo} onChange={triggerModalInfo}/>
-            </Delayed>
-
-            <Delayed waitBeforeShow={4000}>
-                <MovieCarousel request_type = {MOVIES_REACT} 
+            
+                    <MovieCarousel request_type = {MOVIES_REACT} 
                             value = {moreInfo} onChange={triggerModalInfo}/>
-            </Delayed>
-
+                </>
+            ) : (
+                <>
+                </>
+            )}
+            
         
             <Footer/>
         </>
