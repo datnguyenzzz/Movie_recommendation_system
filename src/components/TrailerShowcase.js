@@ -8,6 +8,7 @@ import youtube from '../api/youtube';
 import { CONFIGURES } from '../config';
 import useReactPath from '../api/ReactPath';
 import MovieInfo from '../components/MovieInfo'
+import axios from 'axios';
 
 const ALL_SUGGESTION_MOVIES = 8;
 
@@ -80,6 +81,31 @@ const TrailerShowcase = (props) => {
     //},[window_path])
  
     //1d0Zf9sXlHk
+
+    //ADDING TO LIST HANDLES 
+
+    const handleAddingToList = (movie_id) => {
+        console.log(movie_id);
+        axios({
+            method:'get',
+            url:'/users/addToSavedList',
+            params:{
+                movie_id : movie_id,
+                username : props.is_user_login
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+    }
+
+    const handleAddingToLiked = (movie_id) => {
+        console.log(movie_id);
+    }
+
+    const handleAddingtoDisliked = (movie_id) => {
+        console.log(movie_id);
+    }
     
     const getApi = async (requestApi) => {
         const res = await youtube.get('/search', {
@@ -258,9 +284,22 @@ const TrailerShowcase = (props) => {
                                         }}> 
                                             <i className="fa fa-info-circle fa-lg info-content"> More info</i> 
                                         </Button>
-                                        <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
-                                        <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
-                                        <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
+                                        {(props.is_user_login!=="") ? (
+                                            <>
+                                                <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieTopHead['tconst'])}> 
+                                                    <i className="fa fa-plus fa-lg"></i> 
+                                                </Button>
+                                                <Button className="circle-button mr-2" onClick={()=>handleAddingToLiked(movieTopHead['tconst'])}> 
+                                                    <i className="fa fa-thumbs-up fa-lg"></i> 
+                                                </Button>
+                                                <Button className="circle-button mr-2" onClick={()=>handleAddingtoDisliked(movieTopHead['tconst'])}> 
+                                                    <i className="fa fa-thumbs-down fa-lg"></i> 
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )}
+                                        
                                     </Col>
 
                                     <Col xs={{size : '1'}}>

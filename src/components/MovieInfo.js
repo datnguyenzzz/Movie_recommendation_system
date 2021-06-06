@@ -71,7 +71,7 @@ const CelebName = ({movieChosen}) => {
     );
 }
 
-const MovieInfo = ({movieId, controller, controller_api}) => {
+const MovieInfo = ({is_user_login,movieId, controller, controller_api}) => {
     var signal = controller.signal;
     var signal_api = controller_api.signal;
     console.log(movieId);
@@ -86,6 +86,20 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
         fetchData(movieChosen);
         fetchPosterData(movieChosen);
     }, [movieChosen])
+
+    //HANDLES ADDING TO DB USERS
+
+    const handleAddingToList = (movie_id) => {
+        console.log(movie_id);
+    }
+
+    const handleAddingToLiked = (movie_id) => {
+        console.log(movie_id);
+    }
+
+    const handleAddingtoDisliked = (movie_id) => {
+        console.log(movie_id);
+    }
 
     const getYoutubeApi = async (requestedApi) => {
         const res = await youtube.get('/search', {
@@ -191,9 +205,22 @@ const MovieInfo = ({movieId, controller, controller_api}) => {
 
                                         <Row>
                                             <Col xs = "6">
-                                                <Button className="circle-button mx-2"> <i className="fa fa-plus fa-lg"></i> </Button>
-                                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-up fa-lg"></i> </Button>
-                                                <Button className="circle-button mr-2"> <i className="fa fa-thumbs-down fa-lg"></i> </Button>
+                                                {(is_user_login !== "") ? (
+                                                    <>
+                                                    <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieId)}> 
+                                                        <i className="fa fa-plus fa-lg"></i> 
+                                                    </Button>
+                                                    <Button className="circle-button mr-2" onClick={()=>handleAddingToLiked(movieId)}> 
+                                                        <i className="fa fa-thumbs-up fa-lg"></i> 
+                                                    </Button>
+                                                    <Button className="circle-button mr-2" onClick={()=>handleAddingtoDisliked(movieId)}> 
+                                                        <i className="fa fa-thumbs-down fa-lg"></i> 
+                                                    </Button>
+                                                    </>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                                
                                             </Col>
                                             <Col xs="1">
                                                 <i className="fa fa-star star-icon-sm mt-2"></i>

@@ -54,14 +54,15 @@ const Main = () => {
                 modal_controller_api.abort(); 
             }}>
                 <ModalBody className="px-0 py-0">
-                    <MovieInfo movieId = {movieChosenToReview} 
+                    <MovieInfo is_user_login={userSignedIn}
+                               movieId = {movieChosenToReview} 
                                controller = {modal_controller}
                                controller_api = {modal_controller_api}/>
                 </ModalBody>
 
             </Modal>
             
-            <TrailerShowcase value={moreInfo} onChange={triggerModalInfo}/>
+            <TrailerShowcase is_user_login={userSignedIn} value={moreInfo} onChange={triggerModalInfo}/>
             
             {(userSignedIn !== "") ? (
                 <>
