@@ -82,30 +82,6 @@ const TrailerShowcase = (props) => {
  
     //1d0Zf9sXlHk
 
-    //ADDING TO LIST HANDLES 
-
-    const handleAddingToList = (movie_id) => {
-        console.log(movie_id);
-        axios({
-            method:'get',
-            url:'/users/addToSavedList',
-            params:{
-                movie_id : movie_id,
-                username : props.is_user_login
-            }
-        })
-        .then(res => {
-            console.log(res.data);
-        })
-    }
-
-    const handleAddingToLiked = (movie_id) => {
-        console.log(movie_id);
-    }
-
-    const handleAddingtoDisliked = (movie_id) => {
-        console.log(movie_id);
-    }
     
     const getApi = async (requestApi) => {
         const res = await youtube.get('/search', {
@@ -207,6 +183,67 @@ const TrailerShowcase = (props) => {
     const [modal_controller,set_modal_controller] = useState();
     const [modal_controller_api, set_modal_controller_api] = useState();
     */
+
+    //ADD BUTTON TYPE
+
+    const [movieInSaved, setMovieInSaved] = useState(); 
+    const [movieInLiked, setMovieInLiked] = useState();
+    const [movieInDisliked, setMovieInDisliked] = useState();
+    const [currentUser, setCurrentUser] = useState();
+
+    //ADDING TO LIST HANDLES 
+
+    const handleAddingToList = (movie_id) => {
+        console.log(movie_id);
+        setMovieInSaved(!movieInSaved);
+        axios({
+            method:'get',
+            url:'/users/addToSavedList',
+            params:{
+                movie_id : movie_id,
+                username : props.is_user_login
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+    }
+
+    const handleAddingToLiked = (movie_id) => {
+        console.log(movie_id);
+        setMovieInLiked(!movieInLiked);
+    }
+
+    const handleAddingtoDisliked = (movie_id) => {
+        console.log(movie_id);
+        setMovieInDisliked(!movieInDisliked);
+    }
+
+    if (props.is_user_login!=="" && currentUser!=props.is_user_login) {
+        setCurrentUser(props.is_user_login);
+        var movie_id = movieTopHead['tconst'];
+        var user_id = props.is_user_login;
+
+        axios({
+            method:'get',
+            url:'/users/getUserData',
+            params:{
+                movie_id : movie_id,
+                username : user_id
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            var movies_disliked = res.data["movies_disliked"];
+            var movies_liked = res.data["movies_liked"];
+            var movies_saved = res.data["movies_saved"];
+
+            setMovieInSaved(movies_saved.includes(movie_id));
+            setMovieInLiked(movies_liked.includes(movie_id));
+            setMovieInDisliked(movies_disliked.includes(movie_id));
+        })
+    }
+
     if (movieTopHead) {
         return (
             <>  
@@ -287,7 +324,12 @@ const TrailerShowcase = (props) => {
                                         {(props.is_user_login!=="") ? (
                                             <>
                                                 <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieTopHead['tconst'])}> 
-                                                    <i className="fa fa-plus fa-lg"></i> 
+                                                    {(movieInSaved === false) ? (
+                                                        <i className="fa fa-plus fa-lg"></i> 
+                                                    ) : (
+                                                        <i className="fa fa-check"></i>  
+                                                    )}
+                                                    
                                                 </Button>
                                                 <Button className="circle-button mr-2" onClick={()=>handleAddingToLiked(movieTopHead['tconst'])}> 
                                                     <i className="fa fa-thumbs-up fa-lg"></i> 

@@ -4,6 +4,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import youtube from '../api/youtube';
 
 import { CONFIGURES } from '../config';
+import axios from 'axios';
 
 const CelebName = ({movieChosen}) => {
     console.log(movieChosen);
@@ -89,16 +90,59 @@ const MovieInfo = ({is_user_login,movieId, controller, controller_api}) => {
 
     //HANDLES ADDING TO DB USERS
 
+    const [movieInSaved, setMovieInSaved] = useState(); 
+    const [movieInLiked, setMovieInLiked] = useState();
+    const [movieInDisliked, setMovieInDisliked] = useState();
+    const [currentUser, setCurrentUser] = useState();
+
     const handleAddingToList = (movie_id) => {
-        console.log(movie_id);
+        setMovieInSaved(!movieInSaved);
+        axios({
+            method:'get',
+            url:'/users/addToSavedList',
+            params:{
+                movie_id : movie_id,
+                username : is_user_login
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+        })
     }
 
     const handleAddingToLiked = (movie_id) => {
         console.log(movie_id);
+        setMovieInLiked(!movieInLiked);
     }
 
     const handleAddingtoDisliked = (movie_id) => {
         console.log(movie_id);
+        setMovieInDisliked(!movieInDisliked);
+    }
+
+    if (is_user_login!=="" && currentUser!=is_user_login) {
+        setCurrentUser(is_user_login);
+        var movie_id = movieTopHead['tconst'];
+        var user_id = is_user_login;
+
+        axios({
+            method:'get',
+            url:'/users/getUserData',
+            params:{
+                movie_id : movie_id,
+                username : user_id
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            var movies_disliked = res.data["movies_disliked"];
+            var movies_liked = res.data["movies_liked"];
+            var movies_saved = res.data["movies_saved"];
+
+            setMovieInSaved(movies_saved.includes(movie_id));
+            setMovieInLiked(movies_liked.includes(movie_id));
+            setMovieInDisliked(movies_disliked.includes(movie_id));
+        })
     }
 
     const getYoutubeApi = async (requestedApi) => {
@@ -207,8 +251,13 @@ const MovieInfo = ({is_user_login,movieId, controller, controller_api}) => {
                                             <Col xs = "6">
                                                 {(is_user_login !== "") ? (
                                                     <>
-                                                    <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieId)}> 
-                                                        <i className="fa fa-plus fa-lg"></i> 
+                                                    <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieTopHead['tconst'])}> 
+                                                        {(movieInSaved === false) ? (
+                                                            <i className="fa fa-plus fa-lg"></i> 
+                                                        ) : (
+                                                            <i className="fa fa-check"></i>  
+                                                        )}
+                                                        
                                                     </Button>
                                                     <Button className="circle-button mr-2" onClick={()=>handleAddingToLiked(movieId)}> 
                                                         <i className="fa fa-thumbs-up fa-lg"></i> 

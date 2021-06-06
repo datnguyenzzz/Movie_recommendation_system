@@ -115,6 +115,24 @@ router.post('/signIn', (req,res,next) => {
     })
 })
 
+router.get('/getUserData', (req,res,next) => {
+    var username = req.query.username;
+
+    var finding_command = "select * from [Users.data]\n"+
+                          "where [user_name] = N'" + username + "'";
+
+
+    request.query(finding_command, (err,table) => {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            var data_found = table.recordsets[0][0];
+            res.send(data_found);
+        }
+    })
+})
+
 router.get('/addToSavedList', (req,res,next) => {
     var movie_id = req.query.movie_id;
     var username = req.query.username;
