@@ -22,26 +22,17 @@ var request = new mssql.Request(conn);
 /* AES 256  */
 
 const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
+const CONFIGURES = require('../config');
+const salt = CONFIGURES.salt; 
 
+function createHashPassword(password){
+  let nodeCrypto = crypto.pbkdf2Sync(Buffer.from(password), Buffer.from(salt), 65536, 16, 'sha1');
 
-function encrypt(text) {
-    let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
-    let encrypted = cipher.update(text);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-}
+  return nodeCrypto.toString('hex');
+};
 
-function decrypt(text) {
-    let iv = Buffer.from(text.iv, 'hex');
-    let encryptedText = Buffer.from(text.encryptedData, 'hex');
-    let decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
-    let decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    return decrypted.toString();
-}
+//var text = "123123";
+//console.log(createHashPassword(text));
 
 function makeid(length) {
     var result           = [];
@@ -61,7 +52,7 @@ router.post('/signUp', (req,res,next) => {
     console.log(req.body.username);
     console.log(req.body.password);
 
-    var encrypted_pw = encrypt(req.body.password).encryptedData;
+    var encrypted_pw = createHashPassword(req.body.password);
     
     var finding_command = "select count(*) as [number_users] from [Users.data]\n"+
                           "where [user_name] = N'" + req.body.username + "'";
@@ -111,8 +102,9 @@ router.post('/signIn', (req,res,next) => {
             if (data_found['user_name'] === "") {
                 res.send({error : "Username isn't exist"});
             } else {
-                var encrypted_pw = encrypt(req.body.password).encryptedData;
-
+                var encrypted_pw = createHashPassword(req.body.password);
+                //console.log(decrypt(data_found['password']));
+                //console.log(encrypted_pw);
                 if (encrypted_pw !== data_found['password']) {
                     res.send({error : "Wrong password!!!"})
                 } else {

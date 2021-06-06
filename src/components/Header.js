@@ -156,9 +156,12 @@ const Header = (props) => {
                                 <Input className="signing-input" type="password" onChange={handleSigninPassword} />
                             </FormGroup>
                             <FormGroup className='mt-3 mb-2'>
-                                <Button className="signin-button" type="submit" disabled={signinLoading} 
+                                {/*<Button className="signin-button" type="submit" disabled={signinLoading} 
                                         onClick={!signinLoading ? signinClicked : null} block>
                                             {signinLoading ? 'Loading...' : 'Sign-in'}
+                                    </Button>*/}
+                                <Button className="signin-button" type="submit" block>
+                                    Sign-in
                                 </Button>
                             </FormGroup>
                             <FormGroup check>
@@ -276,7 +279,9 @@ const Header = (props) => {
                             <NavLink href="#" className='px-3 py-1 thick'> Sign in </NavLink>
                         </NavItem>
                     ) : (
-                        <p> {props.value} </p>
+                        <NavItem className="navigator rounded"> 
+                            <NavLink href="#" className='px-3 py-1 thick'> {props.value}  </NavLink> 
+                        </NavItem>
                     )}
                     
                 </Nav>
