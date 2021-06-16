@@ -58,6 +58,27 @@ router.get('/search', (req,res,next) => {
   )
 })
 
+router.get('/searchNew', (req,res,next) => {
+  var baseUri = "https://api.themoviedb.org/3/search/movie?"
+
+  var api_key = req.query.api_key; 
+  var query = req.query.query;
+  var page = req.query.page
+
+  baseUri = baseUri + "api_key=" + api_key + "&"
+                    + "query=" + query + "&" 
+                    + "page=" + page;
+  console.log("***"+baseUri);
+
+  httprequest (
+    {url : baseUri},
+    (error, response, body) => {
+        console.log(baseUri);  
+        res.send(JSON.parse(body));
+    }
+  )
+})
+
 router.get('/GetMovie', (req,res,next) => {
 
   var movieId_requested;
@@ -131,6 +152,27 @@ router.get('/getMovieList', (req,res,next) => {
       return;
     } else {
       res.send(table);
+    }
+  })
+})
+
+
+router.get('/GetMovieById', (req,res,next) => {
+
+  var movieId_requested = req.query.movie_id;
+
+
+  var command = "select [tconst],[primaryTitle]\n" +
+                "from [title.basics]\n"+
+                "where [tconst] = N'"+movieId_requested+"'\n";
+
+  request.query(command, (err,table) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      var data_found = table.recordsets[0][0];
+      res.send(data_found);
     }
   })
 })

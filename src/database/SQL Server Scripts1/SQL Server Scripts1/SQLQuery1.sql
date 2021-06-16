@@ -68,9 +68,10 @@ knownForTitles (array of tconsts) – titles the person is known for
 use systemDB;
 go
 
-select * from [users.data];
-
 /*
 select top 7 * from [title.basics]
 order by newid()
 */
+
+select * from [title.basics]
+where [primaryTitle] like N'%captain%' 

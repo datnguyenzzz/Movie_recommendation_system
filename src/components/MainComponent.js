@@ -15,6 +15,7 @@ const MOVIES_2020 = 0;
 const MOVIES_2019 = 1; 
 const MOVIES_RATING = 2;
 const MOVIES_REACT = 3;
+const MOVIES_SAVED = 4;
 
 const Main = () => {
     const [stopRender, setStopRender] = useState(true);
@@ -66,6 +67,10 @@ const Main = () => {
             
             {(userSignedIn !== "") ? (
                 <>
+                    {/** 
+                    <MovieCarousel request_type = {MOVIES_SAVED}
+                            value = {moreInfo} onChange={triggerModalInfo}
+                            user = {userSignedIn}/>*/}
                     <MovieCarousel request_type = {MOVIES_2020} 
                             value = {moreInfo} onChange={triggerModalInfo}/>
     

@@ -1,7 +1,8 @@
 import React , { useState,useEffect,useRef } from 'react';
 import { Navbar, NavbarBrand, Modal, ModalBody, 
          Nav, NavItem, NavLink, FormGroup, Form,
-         Label, Input, Button, ModalFooter } from 'reactstrap';
+         Label, Input, Button, ModalFooter,
+         Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 
 import axios from 'axios';
 import { CONFIGURES } from '../config';
@@ -140,6 +141,25 @@ const Header = (props) => {
         event.preventDefault();
     }
 
+    //SEARCH QUERY 
+    const [searchQuery, setSearchQuery] = useState(); 
+
+    const submitSearchQuery = event => {
+        setSearchQuery(event.target.value) 
+    }
+
+    const [dropdownOpen, setDropdownOpen] = useState(false); 
+    
+    const dropdownToggle = () => {
+        setDropdownOpen(prevState => !prevState);
+    }
+
+    const handleSubmittedQuery = event => {
+        setDropdownOpen(true);
+        //alert(searchQuery)
+        event.preventDefault();
+    }
+
 
     return (
             <Navbar className="bg-transparent pos-nav" expand="md" sticky="top">
@@ -259,24 +279,39 @@ const Header = (props) => {
                     </NavItem>*/}
 
                     <NavItem className="mx-3 my-2">
-                        <Form>
+                        <Form onSubmit={handleSubmittedQuery}>
                             {(iconClicked) ? (
                                 <>
                                     <a href="#">
                                         <i onClick={clickSearchIcon} className="fa fa-search icon-search icon-search-open"></i>
                                     </a>
-                                    <Input ref={searchIcon} type="text" className="search-bar search-bar-open" placeholder="Title, Genre, Celeb"/>
+                                    <Input type="submit" ref={searchIcon} onChange={submitSearchQuery} type="text" className="search-bar search-bar-open" placeholder="Title, Genre, Celeb"/>
                                 </>
                             ) : (
                                 <>
                                     <a href="#">
                                         <i onClick={clickSearchIcon} className="fa fa-search icon-search"></i>
                                     </a>
-                                    <Input ref={searchIcon} type="text" className="search-bar" placeholder="Title, Genre, Celeb"/>
+                                    <Input type="submit" ref={searchIcon} onChange={submitSearchQuery} type="text" className="search-bar" placeholder="Title, Genre, Celeb"/>
                                 </>
                             )}
+                            <Dropdown isOpen={dropdownOpen} toggle={dropdownToggle}>
+                                <DropdownMenu>
+                                    <DropdownItem>
+                                        <p> 1 </p>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <p> 2 </p>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <p> 3 </p>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
                         </Form>
                     </NavItem>
+
+                    
                     
                     {(props.value === "") ? (
                         <NavItem className="navigator rounded" onClick = {popupSigninModal}> 

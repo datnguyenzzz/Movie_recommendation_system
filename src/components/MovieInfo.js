@@ -122,7 +122,7 @@ const MovieInfo = ({is_user_login,movieId, controller, controller_api}) => {
 
     if (is_user_login!=="" && currentUser!=is_user_login) {
         setCurrentUser(is_user_login);
-        var movie_id = movieTopHead['tconst'];
+        var movie_id = movieId;
         var user_id = is_user_login;
 
         axios({
@@ -251,7 +251,7 @@ const MovieInfo = ({is_user_login,movieId, controller, controller_api}) => {
                                             <Col xs = "6">
                                                 {(is_user_login !== "") ? (
                                                     <>
-                                                    <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieTopHead['tconst'])}> 
+                                                    <Button className="circle-button mx-2" onClick={()=>handleAddingToList(movieId)}> 
                                                         {(movieInSaved === false) ? (
                                                             <i className="fa fa-plus fa-lg"></i> 
                                                         ) : (
