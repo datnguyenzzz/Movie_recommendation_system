@@ -296,7 +296,9 @@ const Header = (props) => {
                                 </>
                             )}
                             <Dropdown isOpen={dropdownOpen} toggle={dropdownToggle}>
-                                <DropdownMenu>
+                                <DropdownToggle disabled>
+                                </DropdownToggle>
+                                <DropdownMenu style={{width:"313px"}} >
                                     <DropdownItem>
                                         <p> 1 </p>
                                     </DropdownItem>
