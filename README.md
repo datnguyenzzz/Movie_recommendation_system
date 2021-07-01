@@ -1,4 +1,4 @@
-# 3th coursework about database - Recommendation movie system
+# 3rd coursework about database - Recommendation movie system
 
 * Inspired by *Netflix* and *IMDb* website
 
