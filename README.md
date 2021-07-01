@@ -1,6 +1,14 @@
-# 3th coursework about database
+# 3th coursework about database - Recommendation movie system
 
-## Recommendation movie system using non-negative matrix factorization method without any Machine Learning Libraries 
+* Using non-negative matrix factorization method without any Machine Learning Libraries as a recommending algoritm for our system
+
+* Databases published by IMDb website. Organize and manipulate in SQL Server 
+
+* Using ReactJS for front end
+
+* Using ExpressJS for back end 
+
+* Retrieve high quality 1440p video from Youtube throught *Youtube Api v3* and movie's posters from *themoviedb.com* API
 
 *Copyright raw data*
 
@@ -12,15 +20,15 @@ Example about our system :
 
 * Main page 
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/github1.PNG)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/1.PNG)
 
 * Recommended movies list 
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/github2.PNG)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/2.PNG)
 
 * Movie overview 
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/github3.PNG)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/3.PNG)
 
 
 
