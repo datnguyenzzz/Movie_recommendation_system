@@ -1,7 +1,26 @@
-3th coursework about database
+# 3th coursework about database
 
-Copyright raw data 
+## Recommendation movie system using non-negative matrix factorization method without any Machine Learning Libraries 
 
-Raw data published on IMDb.com website (https://www.imdb.com/interfaces/)
+*Copyright raw data*
 
-The data can only be used for personal and non-commercial use
+*Raw data published on IMDb.com website (https://www.imdb.com/interfaces/)*
+
+*The data can only be used for personal and non-commercial use*
+
+Example about our system : 
+
+* Main page 
+
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/tree/master/cache/github1.png)
+
+* Recommended movies list 
+
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/tree/master/cache/github2.png)
+
+* Movie overview 
+
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/tree/master/cache/github3.png)
+
+
+
