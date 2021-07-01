@@ -30,7 +30,7 @@
 
 * **Movie searching**
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/4.PNG)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/4_.PNG)
 
 * **Movie overview**
 
