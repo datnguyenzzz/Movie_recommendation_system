@@ -16,17 +16,17 @@
 
 *The data can only be used for personal and non-commercial use*
 
-Example about our system : 
+### Example about our system : 
 
-* Main page 
+* **Main page**
 
 ![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/1.PNG)
 
-* Recommended movies list 
+* **Recommended movies list**
 
 ![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/2.PNG)
 
-* Movie overview 
+* **Movie overview**
 
 ![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/3.PNG)
 
