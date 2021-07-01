@@ -296,17 +296,19 @@ const Header = (props) => {
                                 </>
                             )}
                             <Dropdown isOpen={dropdownOpen} toggle={dropdownToggle}>
-                                <DropdownToggle disabled>
-                                </DropdownToggle>
-                                <DropdownMenu style={{width:"313px"}} >
+                                <DropdownToggle className="px-0 py-0" style={{background:"transparent"}}></DropdownToggle>
+                                <DropdownMenu className="px-0" style={{width:"313px"}} >
                                     <DropdownItem>
-                                        <p> 1 </p>
+                                        <p> Captain Marvel - 2019 </p>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <p> 2 </p>
+                                        <p> Captain America: Civil war - 2019 </p>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <p> 3 </p>
+                                        <p> The Captain - 2017 </p>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <p> Captain Fantastic - 2016 </p>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
@@ -317,12 +319,12 @@ const Header = (props) => {
                     
                     {(props.value === "") ? (
                         <NavItem className="navigator rounded" onClick = {popupSigninModal}> 
-                            <NavLink href="#" className='px-3 py-1 thick'> Sign in </NavLink>
+                            <NavLink href="#" className='px-3 py-2 thick'> Sign in </NavLink>
                         </NavItem>
                     ) : (
                         <>
                         <NavItem className="navigator rounded"> 
-                            <NavLink href="#" className='px-3 py-1 thick'> {props.value}  </NavLink> 
+                            <NavLink href="#" className='px-3 py-2 thick'> {props.value}  </NavLink> 
                         </NavItem>
                         <NavItem className="navigator rounded">
                             <NavLink href="#" className='px-1 py-1' onClick={handleUserLogout}> 
