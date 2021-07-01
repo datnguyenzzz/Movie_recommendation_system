@@ -12,15 +12,15 @@ Example about our system :
 
 * Main page 
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/tree/master/cache/github1.png)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/github1.png)
 
 * Recommended movies list 
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/tree/master/cache/github2.png)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/github2.png)
 
 * Movie overview 
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/tree/master/cache/github3.png)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/github3.png)
 
 
 
