@@ -1,5 +1,7 @@
 # 3th coursework about database - Recommendation movie system
 
+* Inspired by *Netflix* and *IMDb* website
+
 * Using non-negative matrix factorization method without any Machine Learning Libraries as a recommending algoritm for our system
 
 * Databases published by IMDb website. Organize and manipulate in SQL Server 
@@ -25,6 +27,10 @@
 * **Recommended movies list**
 
 ![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/2.PNG)
+
+* **Movie searching**
+
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/4.PNG)
 
 * **Movie overview**
 
