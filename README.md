@@ -12,11 +12,11 @@
 
 * Retrieve high quality 1440p video from Youtube throught *Youtube Api v3* and movie's posters from *themoviedb.com* API
 
-*Disclaimer*
+*###Disclaimer*
 
-* The project still has few issues related to databases like slow queries' execution time and deadlock occur in some data table *
+*The project still has few issues related to databases like slow queries' execution time and deadlock occur in some data table*
 
-*Copyright raw data*
+* Copyright raw data*
 
 *Raw data published on IMDb.com website (https://www.imdb.com/interfaces/)*
 
