@@ -4,7 +4,7 @@
 
 * Using non-negative matrix factorization method without any Machine Learning Libraries as a recommending algoritm for our system
 
-* Databases published by IMDb website. Organize huge database with ~100M row and fast execute several queries on them by SQL Server Management
+* Organize huge database with ~100M rows and fast execute several queries on them by SQL Server Management
 
 * Using ReactJS for front end
 
