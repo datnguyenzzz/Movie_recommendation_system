@@ -14,7 +14,7 @@
 
 **_Disclaimer_**
 
-*The project still has few issues related to databases like slow queries' execution time and deadlock occur in some data table*
+*The project still has deadlock issue occur in some data table*
 
 **_Copyright raw data_**
 
