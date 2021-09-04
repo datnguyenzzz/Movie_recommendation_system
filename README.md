@@ -4,7 +4,7 @@
 
 * Using non-negative matrix factorization method without any Machine Learning Libraries as a recommending algoritm for our system
 
-* Organize huge database with ~100M rows and fast execute several queries on them by SQL Server Management
+* Organize huge database with ~100M rows, create queries, optimize their performance and hardware consumption by SQL Server Management
 
 * Using ReactJS for front end
 
