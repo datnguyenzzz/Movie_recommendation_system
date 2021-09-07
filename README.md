@@ -22,6 +22,10 @@
 
 *The data can only be used for personal and non-commercial use*
 
+### Enity-relational database diagram
+
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/database.PNG)
+
 ### Example about our system : 
 
 * **Main page**
