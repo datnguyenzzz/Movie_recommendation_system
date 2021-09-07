@@ -24,7 +24,7 @@
 
 ### Enity-relational database diagram
 
-![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/database.PNG)
+![alt text](https://github.com/datnguyenzzz/Movie_recommendation_system/blob/master/cache/database.png)
 
 ### Example about our system : 
 
