@@ -33,21 +33,63 @@ if object_id(N'idx_movie_id',N'I') is not null
 	drop index idx_movie_id on dbo.[movie_title_view]
 go
 
+--if object_id(N'idx_recommend',N'I') is not null
+--	drop index idx_recommend on dbo.[recommendation]
+--go
+
 create unique clustered index idx_movie_id
 on [dbo].movie_title_view([movie_id])
 go
 
 create nonclustered index idx_movie_view
-on [dbo].movie_title_view([movie_id],[avg_scores],[start_year])
+on [dbo].movie_title_view([movie_id],[start_year])
+include([original_type],[is_adult],[num_votes],[runtime],[avg_scores])
+go
 
+--GET MOVIE BY ID
+--select * from [dbo].movie_title_view
+--where [movie_id] = N'tt6723592'
+
+--GET MOVIE BY YEAR
 --select top 21 * from [dbo].movie_title_view
 --where [start_year] = N'2020'
 --order by [avg_scores] desc
 
-----------------------------------------------------------------------------------
+--GET RECOMMENDATION LIST
+--select title.[movie_id], title.original_type, title.avg_scores
+--from [dbo].[movie_title_view] as title 
+--inner join [dbo].[recommendation] as recommended 
+--on title.movie_id = recommended.movie_id
+--where recommended.user_id = N'OHqqldr2uJMlwp2l'
 
-select * from [dbo].[users.data]
+--select top 20 * from [dbo].[title.principals]
+--select top 20 * from [dbo].[name.basics]
 
+if object_id(N'dbo.celeb_view',N'V') is not null
+	drop view [dbo].[celeb_view] 
+go 
 
+create view [dbo].[celeb_view] (
+	 rid, movie_id, [name], [birth_year], [death_year], [role], [character_name]
+)
+with schemabinding 
+as 
+	select 
+		prins.tconst as movie_id,
+		bname.primaryName as [name], bname.birthYear as [birth_year], bname.deathYear as [death_year],
+		prins.category,prins.characters as [character_name]
+	from [dbo].[title.principals] as prins 
+	inner join [dbo].[name.basics] as bname 
+	on prins.nconst = bname.nconst
+go
 
-			
+--GET ALL CELEBS
+--select * from [dbo].celeb_view
+--where [movie_id] = N'tt6723592'
+
+-- GET and DELETE FROM TABLE 
+--select [user_id],[user_name],[password] from [dbo].[users.data]
+--where [user_id] = N'OHqqldr2uJMlwp2l'
+
+--select * from [dbo].[dislike_action]
+--where [user_id] = N'OHqqldr2uJMlwp2l'
