@@ -70,7 +70,7 @@ if object_id(N'dbo.celeb_view',N'V') is not null
 go 
 
 create view [dbo].[celeb_view] (
-	 rid, movie_id, [name], [birth_year], [death_year], [role], [character_name]
+	 movie_id, [name], [birth_year], [death_year], [role], [character_name]
 )
 with schemabinding 
 as 
@@ -84,8 +84,11 @@ as
 go
 
 --GET ALL CELEBS
---select * from [dbo].celeb_view
---where [movie_id] = N'tt6723592'
+select * from [dbo].celeb_view
+where [movie_id] = N'tt6723592'
+
+select * from [dbo].[title.principals]
+group by category
 
 -- GET and DELETE FROM TABLE 
 --select [user_id],[user_name],[password] from [dbo].[users.data]
