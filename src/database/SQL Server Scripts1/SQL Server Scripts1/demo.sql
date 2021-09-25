@@ -16,13 +16,13 @@ create view dbo.movie_title_view (
 with schemabinding 
 as 
 	select 
-		title.tconst as [movie_id], title.primaryTitle as [original_type],
-		title.isAdult as [is_adult], title.startYear as [start_year], title.endYear as [end_year], 
-		title.runtimeMinutes as [runtime], 
-		rating.averageRating as [avg_scores], rating.numVotes as [num_votes] 
-	from [dbo].[title.basics] as title
-	inner join [dbo].[title.ratings] rating
-	on title.[tconst] = rating.[tconst]
+		movie.movie_id as [movie_id], movie.original_type as [original_type],
+		movie.is_adult as [is_adult], movie.start_year as [start_year], movie.end_year as [end_year], 
+		movie.runtime as [runtime], 
+		rating.average_rating as [avg_scores], rating.num_votes as [num_votes] 
+	from [dbo].[Movie] as movie
+	inner join [dbo].Movie_rating rating
+	on movie.[movie_id] = rating.[movie_id]
 go
 
 if object_id(N'idx_movie_view',N'I') is not null
@@ -70,17 +70,17 @@ if object_id(N'dbo.celeb_view',N'V') is not null
 go 
 
 create view [dbo].[celeb_view] (
-	 movie_id, [name], [birth_year], [death_year], [role], [character_name]
+	 movie_id, [name], [birth_year], [death_year], [character_name]
 )
 with schemabinding 
 as 
 	select 
-		prins.tconst as movie_id,
-		bname.primaryName as [name], bname.birthYear as [birth_year], bname.deathYear as [death_year],
-		prins.category,prins.characters as [character_name]
-	from [dbo].[title.principals] as prins 
-	inner join [dbo].[name.basics] as bname 
-	on prins.nconst = bname.nconst
+		prins.movie_id as movie_id,
+		bname.primary_name as [name], bname.birth_year as [birth_year], bname.death_year as [death_year],
+		actor.characters as [character_name]
+	from [dbo].Movie_actor as actor 
+	inner join [dbo].Celebrities as bname 
+	on prins.celeb_id = bname.celeb_id
 go
 
 --GET ALL CELEBS

@@ -5,13 +5,13 @@ go
 --	drop table Celebrities;
 --go
 
-create table Celebrities (
-	[celeb_id] varchar(50) primary key not null,
-	[primary_name] varchar(100) not null,
-	[birth_year] varchar(20) null,
-	[death_year] varchar(20) null
-);
-go
+--create table Celebrities (
+--	[celeb_id] varchar(50) primary key not null,
+--	[primary_name] varchar(100) not null,
+--	[birth_year] varchar(20) null,
+--	[death_year] varchar(20) null
+--);
+--go
 
 --insert into Celebrities([celeb_id], [primary_name], [birth_year], [death_year])
 --select nconst, primaryName, birthYear, deathYear 
@@ -106,9 +106,25 @@ go
 --select top 20 * from [dbo].[title.ratings]
 --go
 
-insert into Movie_rating(movie_id,average_rating, num_votes)
-select tconst, averageRating, numVotes 
-from [dbo].[title.ratings]
-go
+--insert into Movie_rating(movie_id,average_rating, num_votes)
+--select tconst, averageRating, numVotes 
+--from [dbo].[title.ratings]
+--go
 
-select top 20 * from Movie_rating 
+--select top 20 * from Movie_rating 
+------------------------------------------------------------
+
+--create table Movie_actor (
+--	movie_id varchar(50) not null, 
+--	celeb_id varchar(50) not null, 
+--	constraint FK_m_actor foreign key ([movie_id]) references Movie(movie_id),
+--	constraint FK_c_actor foreign key (celeb_id) references Celebrities(celeb_id)
+--)
+
+--insert into Movie_actor(movie_id,celeb_id)
+--select tconst, nconst 
+--from [dbo].[title.principals]
+--where category = N'actor' or category = N'actress'
+--go
+
+--select top 10 * from Movie_actor
